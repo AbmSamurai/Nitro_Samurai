@@ -1,0 +1,27 @@
+@media (min-width: 320px) { 
+    .logo{
+        border-radius: 100%;
+        background: #fff;
+        min-width: 50px;
+        min-height: 50px;
+   }
+
+
+}
+
+@media (min-width: 576px) { }
+
+
+@media (min-width: 768px) { }
+
+
+@media (min-width: 992px) { }
+
+
+@media (min-width: 1200px) {
+    .logo{
+        min-width: 70px;
+        min-height: 70px;
+        
+    }
+ }
