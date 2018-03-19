@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import 'hammerjs';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-login-register',
@@ -10,9 +11,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 })
 export class LoginRegisterComponent implements OnInit {
 
-  constructor() {
-
-   }
+  constructor(protected ui: UiService) {
+    ui.showTopNav = false;
+  }
 
   ngOnInit() {
   }

@@ -24,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { AppRouting } from './router-module/router-module.module';
+import { UiService } from './services/ui.service';
 
 
 
@@ -65,7 +66,7 @@ var config = {
     AngularFirestoreModule,   
   ],
   providers: [
-   {provide:ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},AngularFireAuth,DatabaseService,AuthenticationService
+   {provide:ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},AngularFireAuth,DatabaseService,AuthenticationService,UiService
   ],
   bootstrap: [AppComponent]
 })

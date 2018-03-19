@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Team } from '../../models/Team';
 import { DatabaseService } from '../../services/database.service';
 import { Observable } from 'rxjs/Observable';
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,8 +12,8 @@ import { Observable } from 'rxjs/Observable';
 export class DashboardComponent implements OnInit {
 
   teams: Observable<Team[]>;
-  constructor(protected db: DatabaseService) {
-
+  constructor(protected db: DatabaseService, protected ui:UiService) {
+    ui.showTopNav = true;
    }
 
   ngOnInit() {
