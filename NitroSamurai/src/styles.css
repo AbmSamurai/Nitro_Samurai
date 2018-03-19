@@ -18,3 +18,7 @@ mat-ink-bar{
     justify-content: center;
 }
 
+
+.mat-tab-label{
+    min-width: 236px !important;
+}

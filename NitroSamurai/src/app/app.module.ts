@@ -17,6 +17,13 @@ import { CardComponent } from './components/card/card.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DatabaseService } from './services/database.service';
 import { AuthenticationService } from './services/authentication.service';
+import { LoginComponent } from './components/login-register/login/login.component';
+import { LoginRegisterComponent } from './components/login-register/login-register.component';
+import { RegisterComponent } from './components/login-register/register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { ShowOnDirtyErrorStateMatcher } from '@angular/material';
+import { AppRouting } from './router-module/router-module.module';
 
 
 
@@ -37,13 +44,19 @@ var config = {
     TeamViewComponent,
     BottomNavigationComponent,
     CardComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent,
+    LoginRegisterComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialDesignModule,
     RouterModule, 
+    AppRouting,
+    FormsModule,
+    ReactiveFormsModule,
     AngularFireModule,
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,
@@ -51,7 +64,9 @@ var config = {
     AngularFireAuthModule,
     AngularFirestoreModule,   
   ],
-  providers: [AngularFireAuth,DatabaseService,AuthenticationService],
+  providers: [
+   {provide:ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},AngularFireAuth,DatabaseService,AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

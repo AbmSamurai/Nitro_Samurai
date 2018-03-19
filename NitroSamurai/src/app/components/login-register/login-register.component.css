@@ -1,0 +1,20 @@
+body{
+    height:inherit;
+    width: inherit;
+    padding: 5px;
+}
+
+.background{
+    background-image:  url("C:\Users\Jean-Pierre\Documents\Bitbucket\Nitro_Samurai\NitroSamurai\src\assets\img\diagmonds.png");
+    repeat: scroll 0% 0%;
+}
+
+.container_div{
+    padding-top:5px;
+    margin: auto; 
+    margin-top: 5%; 
+    margin-bottom: 10%; 
+    background-color: white
+}
+
+
