@@ -25,6 +25,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { AppRouting } from './router-module/router-module.module';
 import { UiService } from './services/ui.service';
+import { TeamRegistrationComponent } from './team-registration/team-registration.component';
 
 
 
@@ -48,7 +49,8 @@ var config = {
     DashboardComponent,
     LoginComponent,
     LoginRegisterComponent,
-    RegisterComponent
+    RegisterComponent,
+    TeamRegistrationComponent
   ],
   imports: [
     BrowserModule,
