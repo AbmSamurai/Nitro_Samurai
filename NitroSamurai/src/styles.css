@@ -1,5 +1,29 @@
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import "~bootstrap/dist/css/bootstrap.min.css";
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:100,300|Raleway:100,400');
+
+
+.encode-sans-expanded{
+    font-family: 'Encode Sans Expanded', sans-serif;
+}
+
+.font-thin{
+    font-weight: 100;
+}
+
+.font-light{
+    font-weight: 300;
+}
+
+.font-regular{
+    font-weight: 400;
+}
+
+.raleway{
+    font-family: 'Raleway', sans-serif;
+}
+
 
 body{
     margin:0px !important;
@@ -19,6 +43,35 @@ mat-ink-bar{
 }
 
 
-.mat-tab-label{
-    min-width: 236px !important;
+
+
+
+
+@media (min-width: 320px) { 
+    .mat-tab-label{
+        min-width: 50% !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .mat-tab-label{
+        min-width: 30% !important;
+    }
+ }
+
+
+@media (min-width: 768px) {
+    .mat-tab-label{
+        min-width: 20% !important;
+    }
+ }
+
+
+@media (min-width: 992px) { }
+
+
+@media (min-width: 1200px) {
+    .mat-tab-label{
+        min-width: 236px !important;
+    }
 }

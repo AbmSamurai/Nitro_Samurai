@@ -3,6 +3,8 @@ import { AngularFireAuth } from 'angularfire2/Auth';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Team } from '../models/Team';
+import { User } from '@firebase/auth-types';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class DatabaseService {
@@ -15,11 +17,18 @@ export class DatabaseService {
     role;
     highestSprintNum;
     poComment: string;
+    photoURL: string;
+    uploadPercent: Observable<number>;
+    downloadURL: Observable<string>;
+    filePath: string;
+    displayPercentage: number;
     currentLatestSprintObject;
+    
+    teams_collectionRef = this.afStore.collection<Team>("Teams");
 
-    constructor(private afStore: AngularFirestore, private afAuth: AngularFireAuth) {
+    constructor(private afStore: AngularFirestore, private afAuth: AngularFireAuth, private router: Router) {
         this.users = afStore.collection('users').valueChanges();
-        this.teams = afStore.collection('teams').valueChanges();
+        this.teams = afStore.collection('Teams').valueChanges();
         this.sprints = afStore.collection('sprints', ref => ref.orderBy('score', 'desc')).snapshotChanges().map(actions => {
             return actions.map(a => {
                 const data = a.payload.doc.data();
@@ -30,6 +39,38 @@ export class DatabaseService {
         this.getNumSprints();
         // this.checkSprints();
     }
+
+
+    uploadProfilePicture(event, name) {
+        const file = event.target.files[0];
+        this.filePath = "" + name + "-logo";
+        const task = this.storage.upload(this.filePath, file);
+        this.uploadPercent = task.percentageChanges();
+        this.downloadURL = task.downloadURL();
+      }
+    
+      getFilePath() {
+        return this.filePath;
+      }
+    
+      getUploadPercentage() {
+        this.setUploadPercentage();
+        return this.displayPercentage;
+      }
+    
+      setUploadPercentage() {
+        this.uploadPercent.subscribe(response => {
+          this.displayPercentage = response as number;
+          console.log((this.displayPercentage = response as number));
+        });
+      }
+
+    getTeams(): Observable<any> {
+        return this.afStore
+          .collection<Team>("Teams", ref => ref.orderBy("Rating", "desc"))
+          .valueChanges();
+      }
+
 
     createSprint(teamName, sprintNum, points, startDate, endDate) {
         // tslint:disable-next-line:max-line-length
@@ -48,9 +89,7 @@ export class DatabaseService {
         if (role === 'manager') {
             this.afStore.firestore.collection('users').add({ 'user': uid, 'role': role, 'name': name });
         } else if (role === 'po') {
-            this.afStore.firestore
-                .collection('users')
-                .add({ 'user': uid, 'role': role, 'team': team, 'name': name });
+            this.afStore.firestore.collection('users').add({ 'user': uid, 'role': role, 'team': team, 'name': name });
             this.pushToTeams(team, uid, role);
         } else {
             // tslint:disable-next-line:max-line-length
@@ -77,6 +116,23 @@ export class DatabaseService {
             }
         }
     }
+
+
+    createTeam(team: Team) {
+        return this.teams_collectionRef
+          .doc(team.teamName).set(Object.assign({}, team
+            )
+          )
+          .then(success => {
+            console.log('success!');
+            this.router.navigate(['/dashboard']);
+          })
+          .catch(err => {
+            console.log(err.message);
+          });
+      }
+
+
 
     pushToTeams(team: string, uid: string, chosenRole: string) {
         let role = chosenRole;

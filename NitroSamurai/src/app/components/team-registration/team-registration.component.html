@@ -1,0 +1,38 @@
+<div style = "height: 450px">
+  <form class="form">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Team name" [formControl]="teamNameFormControl"
+            [errorStateMatcher]="matcher" >
+      <mat-error *ngIf="teamNameFormControl.hasError('required')">
+        Team Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <div class="image-container">
+      <h3 class="col-4 col-md-10" for="profile-picture">Upload Profile Picture:</h3>
+      <!-- <span > HELLO? {{dbConn.getUploadPercentage() | async}}</span> -->
+      
+    <div class="image-preview-container col-7">
+      <input class="image-input form-control" [(ngModel)] = 'team.Picture' (change)="profileUpload($event)" id="profile-picture" type="file">
+
+     
+      <div class="button-cover d-flex">
+        <i class="plus-button fa fa-plus-circle"></i>
+      </div>
+
+      <div [style.opacity]="profilePicUrl !== undefined ? '1' : '0'" class="image-preview">
+          <img  src ="{{profilePicUrl}}" alt="image preview...">
+        </div>
+
+    </div>
+<!-- 
+    <div class="upload-progress">
+            <div [style.height] = 'dbConn.getUploadPercentage() | async'class="progress"></div>
+        </div> -->
+
+  </div>
+    <br><br>
+    <br><br>
+    <button class = "signin button-width" mat-button (click)='registerTeam()'>Login</button>
+    <button class = "button-width" mat-button><img class = "icon" src = "../../../assets/img/gbb.png" alt = "not found">GOOGLE SIGN IN</button>
+  </form>
+</div>

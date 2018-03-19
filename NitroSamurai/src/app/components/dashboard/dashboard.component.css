@@ -1,0 +1,6 @@
+.card-grid{
+    display: flex;
+    justify-content: space-around;
+    height: 92vh;
+    margin-top: 70px;
+}
