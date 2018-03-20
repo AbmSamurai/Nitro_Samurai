@@ -2,37 +2,27 @@
   <form class="form">
     <mat-form-field class="full-width">
       <input matInput placeholder="Team name" [formControl]="teamNameFormControl"
-            [errorStateMatcher]="matcher" >
+            [errorStateMatcher]="matcher"  [(ngModel)] = 'team.teamName'>
       <mat-error *ngIf="teamNameFormControl.hasError('required')">
         Team Name is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <div class="image-container">
-      <h3 class="col-4 col-md-10" for="profile-picture">Upload Profile Picture:</h3>
-      <!-- <span > HELLO? {{dbConn.getUploadPercentage() | async}}</span> -->
-      
-    <div class="image-preview-container col-7">
-      <input class="image-input form-control" [(ngModel)] = 'team.Picture' (change)="profileUpload($event)" id="profile-picture" type="file">
 
-     
-      <div class="button-cover d-flex">
-        <i class="plus-button fa fa-plus-circle"></i>
-      </div>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Choose a file as your logo" type="text" #fileInputField>
 
-      <div [style.opacity]="profilePicUrl !== undefined ? '1' : '0'" class="image-preview">
-          <img  src ="{{profilePicUrl}}" alt="image preview...">
-        </div>
+        <button mat-icon-button matSuffix (click) = 'triggerFile(fileInput)'><mat-icon class="file-icon">attach_file</mat-icon></button>       
+    </mat-form-field>
 
+    <input type="file" #fileInput [(ngModel)] = 'team.picture' (change)="profileUpload($event,fileInputField)">
+
+
+    <div class="spinner" *ngIf='ui.spinner()' (change)= 'checkDl()'> 
+        <mat-spinner></mat-spinner>
     </div>
-<!-- 
-    <div class="upload-progress">
-            <div [style.height] = 'dbConn.getUploadPercentage() | async'class="progress"></div>
-        </div> -->
+   
 
-  </div>
-    <br><br>
-    <br><br>
-    <button class = "signin button-width" mat-button (click)='registerTeam()'>Login</button>
-    <button class = "button-width" mat-button><img class = "icon" src = "../../../assets/img/gbb.png" alt = "not found">GOOGLE SIGN IN</button>
+ 
+        <button class = "signin button-width buttons" [disabled]='buttonDisabled || !teamNameFormControl.valid' mat-raised-button (click)='registerTeam()'>Register Team</button>
   </form>
 </div>

@@ -17,4 +17,8 @@ body{
     background-color: white
 }
 
+.tab-group{
+    display: flex;
+    justify-content: center;
+}
 

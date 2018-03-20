@@ -5,6 +5,7 @@ import { AngularFireAuth } from 'angularfire2/Auth/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { AppComponent } from './app.component';
 import { TopNavigationComponent } from './components/top-navigation/top-navigation.component';
@@ -67,7 +68,8 @@ var config = {
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AngularFirestoreModule,   
+    AngularFirestoreModule,  
+    AngularFireStorageModule, 
   ],
   providers: [
    {provide:ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},AngularFireAuth,DatabaseService,AuthenticationService,UiService

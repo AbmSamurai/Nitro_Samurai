@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-title class="raleway font-thin">{{ team.teamName }}</mat-card-title>
-  <mat-card-title  class="raleway font-thin">Points: {{ team.rating }}</mat-card-title>
-  <img mat-card-sm image  [src]= "team.Picture | safe">
+  <mat-card-subtitle  class="ralewayfont-regular">Points: {{ team.rating }}</mat-card-subtitle >
+  <img mat-card-sm image  [src]= "team.picture | safe">
   <mat-card-actions>
     <button mat-button>Review</button>
     <button mat-button>View</button>

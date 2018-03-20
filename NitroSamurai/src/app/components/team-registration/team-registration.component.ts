@@ -9,6 +9,7 @@ import { ErrorStateMatcher } from "@angular/material/core";
 import { Router } from "@angular/router";
 import { DatabaseService } from "../../services/database.service";
 import { Team } from "../../models/Team";
+import { UiService } from "../../services/ui.service";
 
 @Component({
   selector: "app-team-registration",
@@ -17,11 +18,12 @@ import { Team } from "../../models/Team";
 })
 export class TeamRegistrationComponent implements OnInit {
   team: Team = new Team();
-
+  downloadUrl: string = "";
   profilePicture: ProfilePicture;
   profilePicUrl: any;
   uploadPercentage: number;
-  constructor(private router: Router, private db: DatabaseService) {}
+  buttonDisabled: boolean = true;
+  constructor(private router: Router, protected db: DatabaseService, protected ui: UiService) {}
 
   ngOnInit() {}
 
@@ -40,9 +42,12 @@ export class TeamRegistrationComponent implements OnInit {
     this.db.createTeam(this.team);
   }
 
-  profileUpload(event: any) {
+  profileUpload(event: any, fileInput: any) {
+    console.log( this.team.teamName);
     this.db.uploadProfilePicture(event, this.team.teamName);
     this.filePreview(event);
+    console.log("Uploading FILE!")
+    this.checkDl(fileInput);
   }
 
   filePreview(event: any) {
@@ -53,6 +58,12 @@ export class TeamRegistrationComponent implements OnInit {
     reader.readAsDataURL(event.target.files[0]);
   }
 
+
+  triggerFile(fileInput: any) {
+    // do something
+    fileInput.click();
+  }
+
   submit() {
     var temp = this.db.getDownloadUrl().subscribe(response => {
       this.team.picture = response as string;
@@ -61,6 +72,21 @@ export class TeamRegistrationComponent implements OnInit {
         this.router.navigate(["/dashboard"]);
       });
     });
+  }
+
+  checkDl(fileInput: any){
+    this.db.getDownloadUrl().subscribe(response =>{
+      if(response){
+        this.ui.showSpinner = false;
+        this.buttonDisabled = false;
+        this.downloadUrl = this.db.filePath; 
+        this.setInputFieldValue(fileInput);
+      }
+    });
+  }
+
+  setInputFieldValue(fileInput: any){
+    fileInput.value = this.downloadUrl;
   }
 }
 

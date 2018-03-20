@@ -5,6 +5,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Team } from '../models/Team';
 import { User } from '@firebase/auth-types';
 import { Router } from '@angular/router';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { UiService } from './ui.service';
 
 @Injectable()
 export class DatabaseService {
@@ -26,7 +28,7 @@ export class DatabaseService {
     
     teams_collectionRef = this.afStore.collection<Team>("Teams");
 
-    constructor(private afStore: AngularFirestore, private afAuth: AngularFireAuth, private router: Router) {
+    constructor(private afStore: AngularFirestore, private afAuth: AngularFireAuth, private router: Router, private storage: AngularFireStorage, private ui:UiService) {
         this.users = afStore.collection('users').valueChanges();
         this.teams = afStore.collection('Teams').valueChanges();
         this.sprints = afStore.collection('sprints', ref => ref.orderBy('score', 'desc')).snapshotChanges().map(actions => {
@@ -42,11 +44,14 @@ export class DatabaseService {
 
 
     uploadProfilePicture(event, name) {
+        console.log(name);
         const file = event.target.files[0];
+        this.ui.showSpinner = true;
         this.filePath = "" + name + "-logo";
+        console.log(file);
         const task = this.storage.upload(this.filePath, file);
-        this.uploadPercent = task.percentageChanges();
-        this.downloadURL = task.downloadURL();
+         this.uploadPercent = task.percentageChanges();
+         this.downloadURL = task.downloadURL();
       }
     
       getFilePath() {
@@ -63,6 +68,10 @@ export class DatabaseService {
           this.displayPercentage = response as number;
           console.log((this.displayPercentage = response as number));
         });
+      }
+
+      getDownloadUrl() {
+        return this.downloadURL;
       }
 
     getTeams(): Observable<any> {

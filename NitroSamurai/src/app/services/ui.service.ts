@@ -5,8 +5,9 @@ export class UiService {
 
   showTopNav: boolean = false;
   showBottomNav: boolean = false;
-  showTeamRegistration: boolean = false;
+  showTeamRegistration: boolean = true;
   isManager: boolean = true;
+  showSpinner: boolean = false;
   constructor() { }
 
 
@@ -24,5 +25,9 @@ export class UiService {
 
   showManager(){
     return this.isManager;
+  }
+
+  spinner(){
+    return this.showSpinner;
   }
 }
