@@ -5,7 +5,6 @@ import { AngularFireAuth } from 'angularfire2/Auth/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
-
 import { AppComponent } from './app.component';
 import { TopNavigationComponent } from './components/top-navigation/top-navigation.component';
 import { MaterialDesignModule } from './material-design/material-design.module';
@@ -25,6 +24,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { AppRouting } from './router-module/router-module.module';
 import { UiService } from './services/ui.service';
+import { TeamReviewComponent } from './components/team-review/team-review.component';
+
 
 
 
@@ -48,7 +49,8 @@ var config = {
     DashboardComponent,
     LoginComponent,
     LoginRegisterComponent,
-    RegisterComponent
+    RegisterComponent,
+    TeamReviewComponent
   ],
   imports: [
     BrowserModule,

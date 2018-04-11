@@ -1,0 +1,35 @@
+<div class="container margin-top-20 content">
+<!-- (ngsubmit)="" -->
+<form [formGroup]="ratingForm" >
+<div class="rating col-md-12 col-xl-12 col-lg-12" >
+<!-- //*ngFor="let x of criteria;index as l" -->
+<!-- <div class="question">{{x.question}}</div> -->
+
+  <fieldset formArrayName="stars" class="rating ">
+
+    <ng-container *ngFor="let num of [4,3,2,1,0]">
+
+      <input [name]="" [formControlName]="" [id]="'star'+(starIds[0][num])" [value]="num+1" type="radio" />
+
+      <label class="full" [for]="'star'+(starIds[0][num])"></label>
+
+    </ng-container>
+
+  </fieldset>
+
+</div>
+
+<textarea name="" formControlName="comment" class="form-control comment-block" id="" cols="30" rows="10"></textarea>
+
+<button class="btn submit-button padding-top-20 submit-text" [disabled]='!ratingForm.valid' type="submit">Submit</button>
+
+
+
+</form>
+
+</div>
+
+<div class="spinner" >
+  <div class="double-bounce1"></div>
+  <div class="double-bounce2"></div>
+</div>

@@ -5,7 +5,7 @@ body{
 }
 
 .background{
-    background-image:  url("C:\Users\Jean-Pierre\Documents\Bitbucket\Nitro_Samurai\NitroSamurai\src\assets\img\diagmonds.png");
+    background-image:  url("../../../assets/img/diagmonds.png");
     repeat: scroll 0% 0%;
 }
 
