@@ -51,8 +51,7 @@ var config = {
     LoginComponent,
     LoginRegisterComponent,
     RegisterComponent,
-    TeamRegistrationComponent
-    RegisterComponent,
+    TeamRegistrationComponent,
     TeamReviewComponent
   ],
   imports: [
