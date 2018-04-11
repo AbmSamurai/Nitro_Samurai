@@ -4,14 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from '../app.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { LoginRegisterComponent } from '../components/login-register/login-register.component';
+import { TopNavigationComponent } from '../components/top-navigation/top-navigation.component';
 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'AppComponent', pathMatch: 'full' },
-  { path: 'home', component: AppComponent },
+  { path: 'dashboard', component: TopNavigationComponent },
   { path: 'team-view', component: AppComponent },
   { path: 'login', component: LoginRegisterComponent },
-  { path: 'dashboard', component: DashboardComponent},
 ]
 
 @NgModule({

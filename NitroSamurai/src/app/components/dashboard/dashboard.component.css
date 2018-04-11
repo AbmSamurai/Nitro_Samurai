@@ -1,0 +1,7 @@
+.card-grid{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap:  wrap;
+    height: 92vh;
+    margin-top: 70px;
+}

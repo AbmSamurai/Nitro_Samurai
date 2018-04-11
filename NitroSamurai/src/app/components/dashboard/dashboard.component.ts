@@ -11,14 +11,22 @@ import { UiService } from '../../services/ui.service';
 })
 export class DashboardComponent implements OnInit {
 
-  teams: Observable<Team[]>;
+  teams: Team[];
   constructor(protected db: DatabaseService, protected ui:UiService) {
     ui.showTopNav = true;
    }
 
   ngOnInit() {
+   this.db.teams.subscribe( response =>{
+    this.teams = response as Team[];
     console.log(this.teams);
-    this.teams = this.db.teams;
+    }) ;
+
+    
+  }
+
+  getTeams(){
+    return this.teams;
   }
 
 }

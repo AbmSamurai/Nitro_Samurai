@@ -1,4 +1,7 @@
-
-<div class="card-grid d-inline-flex justify-content-around">
-  <app-card *ngFor ='let team of db.teams | async' class="crd" [team]='team'></app-card>
+<div class="card-grid ">
+    <div class="spinner" *ngIf= '!getTeams()'>
+        <mat-spinner></mat-spinner>
+    </div>
+  <app-card *ngFor ='let team of this.db.teams | async' class="crd" [team]='team'></app-card>
 </div>
+

@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
-import {MatToolbarModule,MatTabsModule,MatIconModule, MatFormFieldModule, ErrorStateMatcher} from '@angular/material';
+import {MatToolbarModule,MatTabsModule,MatIconModule, MatFormFieldModule, ErrorStateMatcher,MatCardModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -13,6 +15,9 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatCardModule,
+    MatButtonToggleModule,
+    MatProgressSpinnerModule,
   ],
   exports:[
     MatToolbarModule,
@@ -21,7 +26,10 @@ import {MatButtonModule} from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatButtonToggleModule,
+    MatProgressSpinnerModule
   ]
 
 })

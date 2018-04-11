@@ -1,0 +1,28 @@
+<div style = "height: 450px">
+  <form class="form">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Team name" [formControl]="teamNameFormControl"
+            [errorStateMatcher]="matcher" >
+      <mat-error *ngIf="teamNameFormControl.hasError('required')">
+        Team Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Choose a file as your logo" type="text" #fileInputField>
+
+        <button mat-icon-button matSuffix (click) = 'triggerFile(fileInput)'><mat-icon class="file-icon">attach_file</mat-icon></button>       
+    </mat-form-field>
+
+    <input type="file" accept ="image/*" #fileInput (change)="profileUpload($event,fileInputField)" >
+
+
+    <div class="spinner" *ngIf='ui.spinner()' (change)= 'checkDl()'> 
+        <mat-spinner></mat-spinner>
+    </div>
+   
+
+ 
+        <button class = "signin button-width buttons" [disabled]='buttonDisabled || !teamNameFormControl.valid' mat-raised-button (click)='submit()'>Register Team</button>
+  </form>
+</div>
