@@ -18,11 +18,14 @@ import { UiService } from "../../services/ui.service";
 })
 export class TeamRegistrationComponent implements OnInit {
   team: Team = new Team();
+  fileName: string = "";
   downloadUrl: string = "";
   profilePicture: ProfilePicture;
   profilePicUrl: any;
   uploadPercentage: number;
   buttonDisabled: boolean = true;
+
+  
   constructor(private router: Router, protected db: DatabaseService, protected ui: UiService) {}
 
   ngOnInit() {}
@@ -43,8 +46,8 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   profileUpload(event: any, fileInput: any) {
-    console.log( this.team.teamName);
-    this.db.uploadProfilePicture(event, this.team.teamName);
+    console.log(this.teamNameFormControl.value);
+    this.db.uploadProfilePicture(event, this.teamNameFormControl.value);
     this.filePreview(event);
     console.log("Uploading FILE!")
     this.checkDl(fileInput);
@@ -65,21 +68,22 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   submit() {
-    var temp = this.db.getDownloadUrl().subscribe(response => {
-      this.team.picture = response as string;
-      console.log(temp);
-      this.db.createTeam(this.team).then(response => {
-        this.router.navigate(["/dashboard"]);
-      });
+    this.team.picture = this.downloadUrl;
+    this.team.teamName = this.teamNameFormControl.value;
+    console.log(this.team);
+    this.db.createTeam(this.team).then(response => {
+      this.router.navigate(["/dashboard"]);
     });
   }
 
   checkDl(fileInput: any){
     this.db.getDownloadUrl().subscribe(response =>{
+      console.log(response);
       if(response){
         this.ui.showSpinner = false;
         this.buttonDisabled = false;
-        this.downloadUrl = this.db.filePath; 
+        this.fileName = this.db.filePath; 
+        this.downloadUrl = response;
         this.setInputFieldValue(fileInput);
       }
     });

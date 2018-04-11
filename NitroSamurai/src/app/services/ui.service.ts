@@ -5,7 +5,7 @@ export class UiService {
 
   showTopNav: boolean = false;
   showBottomNav: boolean = false;
-  showTeamRegistration: boolean = true;
+  showTeamRegistration: boolean = false;
   isManager: boolean = true;
   showSpinner: boolean = false;
   constructor() { }
@@ -20,6 +20,10 @@ export class UiService {
   }
 
   showTeamReg(){
+    return this.showTeamRegistration;
+  }
+
+  showTeamReview(){
     return this.showTeamRegistration;
   }
 

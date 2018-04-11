@@ -2,7 +2,7 @@
   <form class="form">
     <mat-form-field class="full-width">
       <input matInput placeholder="Team name" [formControl]="teamNameFormControl"
-            [errorStateMatcher]="matcher"  [(ngModel)] = 'team.teamName'>
+            [errorStateMatcher]="matcher" >
       <mat-error *ngIf="teamNameFormControl.hasError('required')">
         Team Name is <strong>required</strong>
       </mat-error>
@@ -14,7 +14,7 @@
         <button mat-icon-button matSuffix (click) = 'triggerFile(fileInput)'><mat-icon class="file-icon">attach_file</mat-icon></button>       
     </mat-form-field>
 
-    <input type="file" #fileInput [(ngModel)] = 'team.picture' (change)="profileUpload($event,fileInputField)">
+    <input type="file" accept ="image/*" #fileInput (change)="profileUpload($event,fileInputField)" >
 
 
     <div class="spinner" *ngIf='ui.spinner()' (change)= 'checkDl()'> 
@@ -23,6 +23,6 @@
    
 
  
-        <button class = "signin button-width buttons" [disabled]='buttonDisabled || !teamNameFormControl.valid' mat-raised-button (click)='registerTeam()'>Register Team</button>
+        <button class = "signin button-width buttons" [disabled]='buttonDisabled || !teamNameFormControl.valid' mat-raised-button (click)='submit()'>Register Team</button>
   </form>
 </div>

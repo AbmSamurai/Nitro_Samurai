@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -17,7 +18,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginComponent {
 
-  constructor(private router:Router){
+  constructor(private router:Router, private auth: AuthenticationService){
 
   }
   emailFormControl = new FormControl('', [
@@ -35,8 +36,7 @@ export class LoginComponent {
 
 
   login(){
-    this.router.navigate(['dashboard']);
-    
+    this.router.navigate(['/dashboard']);
   }
 }
 

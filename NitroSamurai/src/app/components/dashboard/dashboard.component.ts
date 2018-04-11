@@ -25,4 +25,8 @@ export class DashboardComponent implements OnInit {
     
   }
 
+  getTeams(){
+    return this.teams;
+  }
+
 }
