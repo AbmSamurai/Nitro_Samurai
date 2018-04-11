@@ -1,4 +1,4 @@
-<div class="container margin-top-20 content">
+<div class="container margin-top-20 content" *ngIf="visible">
 <!-- (ngsubmit)="" -->
 <form [formGroup]="ratingForm" >
 <div class="rating col-md-12 col-xl-12 col-lg-12" >
@@ -29,7 +29,7 @@
 
 </div>
 
-<div class="spinner" >
+<div class="spinner" *ngIf="!visible">
   <div class="double-bounce1"></div>
   <div class="double-bounce2"></div>
 </div>

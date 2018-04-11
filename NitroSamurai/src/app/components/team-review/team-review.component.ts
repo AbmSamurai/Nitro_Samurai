@@ -11,6 +11,7 @@ export class TeamReviewComponent implements OnInit {
   ratingForm: FormGroup;
   starIds: number[][] = [];
   Team: string;
+  visible:boolean= false;
   Stars: FormArray = new FormArray([]);
 
   constructor(private fb: FormBuilder,private route: ActivatedRoute) {
@@ -18,7 +19,11 @@ export class TeamReviewComponent implements OnInit {
     this.initForm();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+   setTimeout(() => {
+     this.visible = true;
+   }, 2500);
+  }
 
   initForm():void{
     
