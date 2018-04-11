@@ -2,7 +2,7 @@
   <form class="form">
     
     <mat-form-field class="full-width">
-      <input matInput placeholder="Email" [formControl]="emailFormControl"
+      <input [(ngModel)] = "email" matInput placeholder="Email" [formControl]="emailFormControl"
             [errorStateMatcher]="matcher">
       <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
       <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -14,7 +14,7 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
-        <input type = "password" matInput placeholder="Password" [formControl]="passwordFormControl"
+        <input [(ngModel)] = "password" type = "password" matInput placeholder="Password" [formControl]="passwordFormControl"
               [errorStateMatcher]="passMatcher">
         <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
         <mat-error *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
@@ -28,8 +28,8 @@
     <br><br>
     <br><br>
     
-    <button class = "signin button-width" mat-button (click)='login()'>Login</button>
-    <button class = "button-width" mat-button><img class = "icon" src = "../../../assets/img/gbb.png" alt = "not found">GOOGLE SIGN IN</button>
+    <button class = "signin button-width" mat-button (click) = "login(email, password)">Login</button>
+    <button class = "button-width" mat-button (click) = 'googleLogin()'><img class = "icon" src = "../../../assets/img/gbb.png" alt = "not found">GOOGLE</button>
 
 
   </form>

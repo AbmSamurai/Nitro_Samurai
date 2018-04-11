@@ -17,22 +17,28 @@ export class AuthenticationService {
         this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
             (success) => {
                 loggedIn = true;
+                this.router.navigate(['/dashboard']);
             }).catch(
             (err) => {
                 loggedIn = false;
+                console.log(err + "does not exist")
             });
         return this.afAuth.auth.currentUser;
     }
 
     googlePopUp() {
-        this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(response => {
+        this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
+            response => {
             if (response.additionalUserInfo.isNewUser) {
-                if (!this.router.url.includes('register')) {
-                    this.router.navigate(['/register']);
-                }
+                // if (!this.router.url.includes('register')) {
+                //     this.router.navigate(['/register']);
+                // }
+                alert("Welcome");
+                this.router.navigate(['/dashboard']);
             } else {
                 this.router.navigate(['/dashboard']);
             }
+
             this.loggedInWithGoogle = true;
         });
     }
