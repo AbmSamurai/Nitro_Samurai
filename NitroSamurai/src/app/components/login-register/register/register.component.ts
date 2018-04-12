@@ -1,5 +1,9 @@
+import { AuthenticationService } from './../../../services/authentication.service';
+import { Team } from './../../../models/Team';
+import { OnInit } from '@angular/core';
+import { DatabaseService } from './../../../services/database.service';
 // import { MyErrorStateMatcher } from './../login/login.component';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
@@ -15,15 +19,27 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   roles: Array<{viewValue: string}> = [];
+  teams;
 
-  constructor(){
+  constructor(private db: DatabaseService, private auth: AuthenticationService){
     this.roles.push(
       {viewValue: "Member"},
+      {viewValue: "Leader"},
       {viewValue: "PO"},
-      {viewValue: "Admin"},
+      {viewValue: "Manager"},
+      
     )
+    
+  }
+
+  ngOnInit(){
+    this.db.teams.subscribe( response =>{
+      this.teams = response as Team[];
+      // console.log(this.teams[1].teamName);
+      }) ;
+  
   }
 
   emailFormControl = new FormControl('', [
@@ -49,6 +65,9 @@ export class RegisterComponent {
   emailMatcher = new MyErrorStateMatcher();
   passMatcher = new MyErrorStateMatcher();
 
+  signUp(email, password, myName, role, team) {
+    this.auth.signUp(email, password, myName, role, team);
+  }
 
 }
 

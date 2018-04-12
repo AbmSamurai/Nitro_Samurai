@@ -94,7 +94,7 @@ export class DatabaseService {
         this.teamHighestSprint++;
     }
 
-    createNewUser(uid: string, role: string, team: string, newTeam: boolean, name: string) {
+    createNewUser(uid: string, role: string, team: string, name: string) {
         if (role === 'manager') {
             this.afStore.firestore.collection('users').add({ 'user': uid, 'role': role, 'name': name });
         } else if (role === 'po') {
@@ -110,7 +110,7 @@ export class DatabaseService {
                     'team': team,
                     'name': name
                 });
-            if (role === 'leader' && newTeam) {
+            if (role === 'leader') {
                 // tslint:disable-next-line:max-line-length
                 this.afStore.firestore
                     .collection('teams')
