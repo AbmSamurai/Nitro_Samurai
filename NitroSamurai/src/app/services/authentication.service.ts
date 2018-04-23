@@ -20,6 +20,7 @@ export class AuthenticationService {
                 this.router.navigate(['/dashboard']);
             }).catch(
             (err) => {
+                alert(err.message);
                 loggedIn = false;
                 console.log(err + "does not exist")
             });
