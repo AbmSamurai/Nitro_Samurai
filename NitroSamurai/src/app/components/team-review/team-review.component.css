@@ -1,4 +1,12 @@
 
+@import url('https://fonts.googleapis.com/css?family=Gugi');
+._header {
+  font-family: 'Gugi';
+  font-size:  2.2rem;
+  color: #191970;
+  position: relative;
+  left:35%;
+}
 
 
 .rating {
@@ -62,7 +70,7 @@ selection .rating>input:checked~label:hover~label {
   margin: 20px;
 }
 
-margin-top-20 {
+.margin-top-20{
   margin-top: 20px;
 }
 
@@ -72,7 +80,7 @@ margin-top-20 {
   width: 70px;
   height: 70px;
   position: absolute;
-  top:45%;
+  top:20%;
   left:45%;
   margin: 100px auto;
 }
