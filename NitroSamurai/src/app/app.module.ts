@@ -28,6 +28,9 @@ import { AppRouting } from './router-module/router-module.module';
 import { UiService } from './services/ui.service';
 import { TeamRegistrationComponent } from './components/team-registration/team-registration.component';
 import { SafePipe } from './services/Pipe/safe.pipe';
+import { ModalComponent } from './components/modal/modal.component';
+import { TeamNavigationComponent } from './components/team-navigation/team-navigation.component';
+import { CacheService } from './services/cache.service';
 
 
 
@@ -53,7 +56,9 @@ var config = {
     LoginRegisterComponent,
     RegisterComponent,
     TeamRegistrationComponent,
-    SafePipe
+    SafePipe,
+    ModalComponent,
+    TeamNavigationComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +77,7 @@ var config = {
     AngularFireStorageModule, 
   ],
   providers: [
-   {provide:ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},AngularFireAuth,DatabaseService,AuthenticationService,UiService
+   {provide:ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},AngularFireAuth,DatabaseService,AuthenticationService,UiService, CacheService
   ],
   bootstrap: [AppComponent]
 })
