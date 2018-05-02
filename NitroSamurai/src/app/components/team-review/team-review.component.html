@@ -1,0 +1,38 @@
+<div class="container margin-top-20 content" *ngIf="visible && !criteria?.isEmpty">
+<!-- <div class="_header>"Time To rate {{Team}}"</div> -->
+
+  <div class="_header">"Time to review {{Team}}"</div>
+  <form [formGroup]="ratingForm" (ngSubmit)="submitRating(ratingForm.value)">
+    
+    <div class="rating col-md-12 col-xl-12 col-lg-12" *ngFor="let criteria of criteria ; index as l">
+  
+      <div class="question">{{criteria.Question}}</div>
+  
+      <fieldset formArrayName="stars" class="rating ">
+  
+        <ng-container *ngFor="let num of [4,3,2,1,0]">
+  
+          <input [name]="l" [formControlName]="l" [id]="'star'+(starIds[l][num])" [value]="num+1" type="radio" />
+  
+          <label class="full" [for]="'star'+(starIds[l][num])"></label>
+  
+        </ng-container>
+  
+      </fieldset>
+  
+    </div>
+  
+    <textarea name="" formControlName="comment" placeholder="Enter a comment if youd like" class="form-control comment-block" id="" cols="30" rows="10"></textarea>
+  
+    <button class="btn submit-button padding-top-20 submit-text" [disabled]='!ratingForm.valid' type="submit">Submit</button>
+  
+  
+  
+  </form>
+
+</div>
+
+<div class="spinner" *ngIf="!visible">
+  <div class="double-bounce1"></div>
+  <div class="double-bounce2"></div>
+</div>

@@ -1,3 +1,4 @@
+import { TeamReviewComponent } from './../components/team-review/team-review.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -10,7 +11,7 @@ import { TopNavigationComponent } from '../components/top-navigation/top-navigat
 export const routes: Routes = [
   { path: '', redirectTo: 'AppComponent', pathMatch: 'full' },
   { path: 'dashboard', component: TopNavigationComponent },
-  { path: 'team-view', component: AppComponent },
+  { path: 'team-view/:teamName', component: AppComponent },
   { path: 'login', component: LoginRegisterComponent },
 ]
 
