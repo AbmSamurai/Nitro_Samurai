@@ -41,7 +41,7 @@ export class AuthenticationService {
         this.afAuth.auth.signOut();
     }
 
-    signUp(email, password, name, role, team, newTeam) {
+    signUp(email, password, name, role, team, newTeam?) {
         if (this.loggedInWithGoogle) {
             this.db.createNewUser(this.afAuth.auth.currentUser.uid, role, team, newTeam, this.getName());
         } else {
@@ -49,7 +49,7 @@ export class AuthenticationService {
             this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
                 (success) => {
                     this.updateTable(name, role, team, newTeam);
-                }).catch(
+                }).catch( 
                 (err) => {
                     if (err.message === 'The email address is already in use by another account.') {
                         alert(err.message);
@@ -79,6 +79,15 @@ export class AuthenticationService {
 
     getUID() {
         return this.afAuth.auth.currentUser.uid;
+    }
+    signOut(){
+        this.afAuth.auth.signOut().then(()=>{
+            this.router.navigate(['/']);
+        })
+    }
+
+    resetPassword(email:string){
+        this.afAuth.auth.sendPasswordResetEmail(email)
     }
 
 }

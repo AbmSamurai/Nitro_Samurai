@@ -9,7 +9,7 @@ import { TopNavigationComponent } from '../components/top-navigation/top-navigat
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'AppComponent', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'dashboard', component: TopNavigationComponent },
   { path: 'team-view/:teamName', component: AppComponent },
   { path: 'login', component: LoginRegisterComponent },

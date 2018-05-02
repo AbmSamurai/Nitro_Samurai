@@ -1,6 +1,14 @@
+import { AuthenticationService } from './../../../services/authentication.service';
 // import { MyErrorStateMatcher } from './../login/login.component';
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {
+  FormControl,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+  FormGroup,
+  FormBuilder
+} from "@angular/forms";
 import {ErrorStateMatcher} from '@angular/material/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -17,13 +25,34 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RegisterComponent {
   roles: Array<{viewValue: string}> = [];
-
-  constructor(){
+  RegisterForm:FormGroup;
+  constructor(private afAuth:AuthenticationService ,private fb :FormBuilder){
     this.roles.push(
       {viewValue: "Member"},
       {viewValue: "PO"},
       {viewValue: "Admin"},
     )
+    this.RegisterForm = this.fb.group({
+      emailFormControl: [
+        null,
+        Validators.compose([Validators.required, Validators.email])
+      ],
+      passwordFormControl: [
+        null,
+        Validators.compose([Validators.required, Validators.minLength(8)])
+      ],
+      nameFormControl: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("[A-Za-z]{1,32}")
+        ])
+      ],
+      selectFormControl: [
+        null,
+        Validators.compose([Validators.required])
+      ]
+    });
   }
 
   emailFormControl = new FormControl('', [
@@ -49,6 +78,9 @@ export class RegisterComponent {
   emailMatcher = new MyErrorStateMatcher();
   passMatcher = new MyErrorStateMatcher();
 
+  signUp(){
+
+  }
 
 }
 
