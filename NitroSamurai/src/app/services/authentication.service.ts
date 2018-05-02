@@ -17,22 +17,29 @@ export class AuthenticationService {
         this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
             (success) => {
                 loggedIn = true;
+                this.router.navigate(['/dashboard']);
             }).catch(
             (err) => {
+                alert(err.message);
                 loggedIn = false;
+                console.log(err + "does not exist")
             });
         return this.afAuth.auth.currentUser;
     }
 
     googlePopUp() {
-        this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(response => {
+        this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
+            response => {
             if (response.additionalUserInfo.isNewUser) {
-                if (!this.router.url.includes('register')) {
-                    this.router.navigate(['/register']);
-                }
+                // if (!this.router.url.includes('register')) {
+                //     this.router.navigate(['/register']);
+                // }
+                alert("Error: Please Register");
+                // this.router.navigate(['/dashboard']);
             } else {
                 this.router.navigate(['/dashboard']);
             }
+
             this.loggedInWithGoogle = true;
         });
     }
@@ -41,19 +48,19 @@ export class AuthenticationService {
         this.afAuth.auth.signOut();
     }
 
-    signUp(email, password, name, role, team, newTeam) {
+    signUp(email, password, myName, role, team) {
         if (this.loggedInWithGoogle) {
-            this.db.createNewUser(this.afAuth.auth.currentUser.uid, role, team, newTeam, this.getName());
+            this.db.createNewUser(this.afAuth.auth.currentUser.uid, role, team, this.getName());
         } else {
             this.logout();
             this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
                 (success) => {
-                    this.updateTable(name, role, team, newTeam);
+                    this.updateTable(myName, role, team);
                 }).catch(
                 (err) => {
                     if (err.message === 'The email address is already in use by another account.') {
                         alert(err.message);
-                        this.router.navigate(['/register']);
+                        // this.router.navigate(['/register']);
                     } else {
                         console.log(err.message);
                     }
@@ -61,9 +68,10 @@ export class AuthenticationService {
         }
     }
 
-    updateTable(name, role, team, newTeam) {
+    updateTable(name, role, team) {
         this.afAuth.auth.currentUser.updateProfile({ displayName: name, photoURL: null });
-        this.db.createNewUser(this.afAuth.auth.currentUser.uid, role, team, newTeam, this.getName());
+        this.db.createNewUser(this.afAuth.auth.currentUser.uid, role, team, this.getName());
+        this.router.navigate(['/dashboard']);
     }
 
     getName() {

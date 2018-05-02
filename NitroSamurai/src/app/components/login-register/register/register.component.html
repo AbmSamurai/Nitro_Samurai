@@ -2,7 +2,7 @@
   <form class="form">
 
       <mat-form-field class="full-width">
-          <input type = "text" matInput placeholder="Fullname" [formControl]="nameFormControl"
+          <input [(ngModel)] = "myName" type = "text" matInput placeholder="Fullname" [formControl]="nameFormControl"
                 [errorStateMatcher]="nameMatcher">
           <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
           <mat-error *ngIf="nameFormControl.hasError('pattern') && !nameFormControl.hasError('required')">
@@ -14,7 +14,7 @@
     </mat-form-field>
     
     <mat-form-field class="full-width">
-      <input matInput placeholder="Email" [formControl]="emailFormControl"
+      <input [(ngModel)] = "email" matInput placeholder="Email" [formControl]="emailFormControl"
             [errorStateMatcher]="emailMatcher">
       
       <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -26,7 +26,7 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
-        <input type = "password" matInput placeholder="Password" [formControl]="passwordFormControl"
+        <input [(ngModel)] = "password" type = "password" matInput placeholder="Password" [formControl]="passwordFormControl"
               [errorStateMatcher]="passMatcher">
         
         <mat-error *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
@@ -38,17 +38,25 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
-        <mat-select placeholder="Choose Role">
+        <mat-select name = "selectedRole" [(ngModel)] = "selectedRole" placeholder="Choose Role">
           <mat-option *ngFor="let role of roles" [value]="role.viewValue">
             {{ role.viewValue }}
           </mat-option>
         </mat-select>
     </mat-form-field>
 
+    <mat-form-field class="full-width">
+      <mat-select name = "selectedTeam" [(ngModel)] = "selectedTeam" placeholder="Choose Team">
+        <mat-option *ngFor="let team of teams" [value]="team.teamName">
+          {{ team.teamName }}
+        </mat-option>
+      </mat-select>
+  </mat-form-field>
+
     <br><br>
       
-      <button class = "signin button-width" mat-button>Signup</button>
-      <button class = "button-width" mat-button><img class = "icon" src = "../../../assets/img/gbb.png" alt = "not found">GOOGLE SIGN IN</button>
+      <button class = "signin button-width" (click) = "signUp(email, password, myName, selectedRole, selectedTeam)" mat-button>Signup</button>
+      <button class = "button-width" mat-button><img class = "icon" src = "../../../assets/img/gbb.png" alt = "not found">GOOGLE</button>
 
   </form>
 </div>

@@ -158,6 +158,33 @@ export class DatabaseService {
     }
   }
 
+
+    createNewUser(uid: string, role: string, team: string, name: string) {
+        if (role === 'manager') {
+            this.afStore.firestore.collection('users').add({ 'user': uid, 'role': role, 'name': name });
+        } else if (role === 'po') {
+            this.afStore.firestore.collection('users').add({ 'user': uid, 'role': role, 'team': team, 'name': name });
+            this.pushToTeams(team, uid, role);
+        } else {
+            // tslint:disable-next-line:max-line-length
+            this.afStore.firestore
+                .collection('users')
+                .add({
+                    'user': uid,
+                    'role': role,
+                    'team': team,
+                    'name': name
+                });
+            if (role === 'leader') {
+                // tslint:disable-next-line:max-line-length
+                this.afStore.firestore
+                    .collection('teams')
+                    .add({
+                        'name': team,
+                        'leaders': [uid],
+                        'velocity': 0,
+                        'totalSprints': 0
+                    });
   pushToTeams(team: string, uid: string, chosenRole: string) {
     let role = chosenRole;
     if (role === "leader") {

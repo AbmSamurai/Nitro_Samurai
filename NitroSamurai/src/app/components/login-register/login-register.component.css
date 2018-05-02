@@ -22,3 +22,8 @@ body{
     justify-content: center;
 }
 
+.mat-tab-label, .mat-tab-label-active{
+    /* background: #1A237E !important; */
+    width: 100%;
+}
+
