@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Team } from '../models/Team';
 
 @Injectable()
 export class UiService {
@@ -8,6 +9,10 @@ export class UiService {
   showTeamRegistration: boolean = false;
   isManager: boolean = true;
   showSpinner: boolean = false;
+  modalActive: boolean = false;
+  modalSection: string = "";
+  teamSection: string = "details";
+  team:Team = new Team();
   constructor() { }
 
 
@@ -33,5 +38,27 @@ export class UiService {
 
   spinner(){
     return this.showSpinner;
+  }
+
+  showModal(){
+    return this.modalActive;
+  }
+
+  setModal(modalActive:boolean){
+    this.modalActive = false;
+  }
+
+
+  getTeamSection(){
+    return this.teamSection;
+  }
+
+  setModalSection(sectionName: string){
+    this.modalSection = sectionName;
+  }
+
+  getModalSection(){
+    console.log(this.modalSection);
+    return this.modalSection;
   }
 }

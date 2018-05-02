@@ -1,3 +1,10 @@
+app-team-navigation{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+}
+
 @media (min-width: 320px) { 
     .logo{
         border-radius: 100%;
