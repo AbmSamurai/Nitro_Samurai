@@ -4,6 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Team } from '../models/Team';
 import { Criteria } from '../models/criteria';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { UiService } from './ui.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class DatabaseService {
@@ -16,12 +19,21 @@ export class DatabaseService {
   role;
   highestSprintNum;
   poComment: string;
+  photoURL: string;
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
+  filePath: string;
+  displayPercentage: number;
   currentLatestSprintObject;
 
   criteria_collectionRef = this.afStore.collection<Criteria>("criteria");
+  teams_collectionRef = this.afStore.collection<Team>("teams");
   constructor(
     private afStore: AngularFirestore,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private storage: AngularFireStorage,
+    private ui: UiService,
+    private router:Router,
   ) {
     this.users = afStore.collection("users").valueChanges();
     this.teams = afStore.collection("Teams").valueChanges();
@@ -67,6 +79,45 @@ export class DatabaseService {
         .update({ open: false });
     }
     this.teamHighestSprint++;
+  }
+
+
+    uploadProfilePicture(event, name) {
+        console.log(name);
+        const file = event.target.files[0];
+        this.ui.showSpinner = true;
+        this.filePath = "" + name + "-logo";
+        console.log(file);
+        const task = this.storage.upload(this.filePath, file);
+         this.uploadPercent = task.percentageChanges();
+         this.downloadURL = task.downloadURL();
+      }
+    
+      
+      getFilePath() {
+        return this.filePath;
+      }
+    
+      getUploadPercentage() {
+        this.setUploadPercentage();
+        return this.displayPercentage;
+      }
+    
+      setUploadPercentage() {
+        this.uploadPercent.subscribe(response => {
+          this.displayPercentage = response as number;
+          console.log((this.displayPercentage = response as number));
+        });
+      }
+
+      getDownloadUrl() {
+        return this.downloadURL;
+      }
+
+  getTeams(): Observable<any> {
+    return this.afStore
+          .collection<Team>("Teams", ref => ref.orderBy("Rating", "desc"))
+          .valueChanges();
   }
 
   createNewUser(
@@ -156,6 +207,20 @@ export class DatabaseService {
     });
   }
 
+
+    createTeam(team: Team) {
+        return this.teams_collectionRef
+          .doc(team.teamName).set(Object.assign({}, team
+            )
+          )
+          .then(success => {
+            console.log('success!');
+            this.router.navigate(['/dashboard']);
+          })
+          .catch(err => {
+            console.log(err.message);
+          });
+      }
   setCurrentSprint(sprintNum) {
     this.sprints.subscribe(response => {
       response.map(element => {

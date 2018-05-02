@@ -12,7 +12,7 @@ export class AuthenticationService {
 
     constructor(private afAuth: AngularFireAuth, private router: Router, private db: DatabaseService) { }
 
-    signIn(email, password): boolean {
+    signIn(email, password){
         let loggedIn = false;
         this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
             (success) => {
@@ -21,7 +21,7 @@ export class AuthenticationService {
             (err) => {
                 loggedIn = false;
             });
-        return loggedIn;
+        return this.afAuth.auth.currentUser;
     }
 
     googlePopUp() {

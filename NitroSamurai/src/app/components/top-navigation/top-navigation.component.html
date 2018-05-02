@@ -1,9 +1,20 @@
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <span>Nitro-Samurai</span>
-      </mat-toolbar-row>
+<mat-toolbar class="d-flex justify-content-between " color="primary">
+  <mat-toolbar-row>
+    <span>Nitro-Samurai</span>
+    <div>
+        <button mat-button  *ngIf="ui.showManager()" data-toggle="modal" data-target="#exampleModal" (click)='registerTeam()'>Register a team</button>
+        <button mat-button *ngIf="ui.showManager()" (click)='registerTeam()'>Admin Panel</button>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>
-<mat-tab-group color="accent" disableRipple="true" backgroundColor="primary">
-  <mat-tab label="Dashboard" disableRipple="true"><app-dashboard></app-dashboard></mat-tab>
-  <mat-tab label="My Team" disableRipple="true"><app-team-view></app-team-view></mat-tab>
+
+<mat-tab-group id="top-nav" color="accent" disableRipple="true" backgroundColor="primary">
+  <mat-tab label="Dashboard" disableRipple="true">
+    <app-dashboard></app-dashboard>
+  </mat-tab>
+  <mat-tab label="My Team" disableRipple="true">
+    <app-team-navigation></app-team-navigation>
+    <app-team-view [style.display]= "ui.getTeamSection() == 'details'? 'block': 'none'" [givenTeam]='this.cache.teams[0]'></app-team-view>
+  </mat-tab>
 </mat-tab-group>
+

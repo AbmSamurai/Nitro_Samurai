@@ -9,6 +9,7 @@ export class Team{
     teamName: string;
     rating: number;
     picture: string;
+    url:string;
 
     constructor(){
         this.leaders = new Array<User>();
