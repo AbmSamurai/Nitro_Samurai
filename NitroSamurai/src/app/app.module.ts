@@ -26,6 +26,9 @@ import { AppRouting } from './router-module/router-module.module';
 import { UiService } from './services/ui.service';
 import { TeamRegistrationComponent } from './team-registration/team-registration.component';
 import { TeamReviewComponent } from './components/team-review/team-review.component';
+import { NotFoundComponent } from "./components/not-found/not-found.component";
+import { AuthGuard } from "./services/auth.guard";
+
 
 
 
@@ -52,7 +55,8 @@ var config = {
     LoginRegisterComponent,
     RegisterComponent,
     TeamRegistrationComponent,
-    TeamReviewComponent
+    TeamReviewComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,7 @@ var config = {
   ],
   providers: [
    {provide:ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},AngularFireAuth,DatabaseService,AuthenticationService,UiService
-  ],
+  ,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

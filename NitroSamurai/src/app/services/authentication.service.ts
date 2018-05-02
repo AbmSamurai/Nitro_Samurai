@@ -1,3 +1,6 @@
+import { AngularFirestore } from 'angularfire2/firestore';
+import { User } from './../models/User';
+import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
@@ -9,8 +12,19 @@ import { DatabaseService } from './database.service';
 export class AuthenticationService {
 
     loggedInWithGoogle = false;
+    user$ :Observable<User>;
 
-    constructor(private afAuth: AngularFireAuth, private router: Router, private db: DatabaseService) { }
+    constructor(private afAuth: AngularFireAuth, private router: Router, private db: DatabaseService,private afs:AngularFirestore) { 
+        
+        this.user$ = this.afAuth.authState
+        .switchMap(user => {
+        if(user){
+           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        }else{
+            return Observable.of(null);
+        }
+        });
+    }
 
     signIn(email, password): boolean {
         let loggedIn = false;
@@ -79,6 +93,12 @@ export class AuthenticationService {
 
     getUID() {
         return this.afAuth.auth.currentUser.uid;
+    }
+
+    signOut(){
+        this.afAuth.auth.signOut().then(() =>{
+            this.router.navigate(['/']);
+        });
     }
 
 }
