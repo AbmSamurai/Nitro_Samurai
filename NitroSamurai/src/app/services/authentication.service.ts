@@ -50,7 +50,7 @@ export class AuthenticationService {
 
     signUp(email, password, myName, role, team) {
         if (this.loggedInWithGoogle) {
-            this.db.createNewUser(this.afAuth.auth.currentUser.uid, role, team, this.getName());
+            // this.db.createNewUser(this.afAuth.auth.currentUser.uid, role, team, this.getName());
         } else {
             this.logout();
             this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
@@ -69,9 +69,10 @@ export class AuthenticationService {
     }
 
     updateTable(name, role, team) {
+        console.log(name);
         this.afAuth.auth.currentUser.updateProfile({ displayName: name, photoURL: null });
-        this.db.createNewUser(this.afAuth.auth.currentUser.uid, role, team, this.getName());
-        this.router.navigate(['/dashboard']);
+        this.db.createNewUser(this.afAuth.auth.currentUser.uid, role, team,false, name);
+        // this.router.navigate(['/dashboard']);
     }
 
     getName() {
