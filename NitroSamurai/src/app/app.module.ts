@@ -31,6 +31,8 @@ import { SafePipe } from './services/Pipe/safe.pipe';
 import { ModalComponent } from './components/modal/modal.component';
 import { TeamNavigationComponent } from './components/team-navigation/team-navigation.component';
 import { CacheService } from './services/cache.service';
+import { TeamReviewComponent } from './components/team-review/team-review.component';
+
 
 
 
@@ -59,6 +61,7 @@ var config = {
     SafePipe,
     ModalComponent,
     TeamNavigationComponent,
+    TeamReviewComponent
   ],
   imports: [
     BrowserModule,
