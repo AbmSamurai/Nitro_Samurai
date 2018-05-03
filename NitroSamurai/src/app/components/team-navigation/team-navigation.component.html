@@ -1,0 +1,6 @@
+<button class="menuButton"  mat-raised-button [matMenuTriggerFor]="menu" color="accent" >Views</button>
+<mat-menu #menu="matMenu" overlapTrigger='false'>
+  <button mat-menu-item (click)= 'setSection("details")'>Details</button>
+  <button mat-menu-item (click)= 'setSection("sprint")'>Sprint</button>
+  <button mat-menu-item (click)= 'setSection("burndown")'>Burndown</button>
+</mat-menu>

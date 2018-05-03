@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -17,7 +18,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginComponent {
 
-  constructor(private router:Router){
+  constructor(private router:Router, private auth: AuthenticationService){
 
   }
   emailFormControl = new FormControl('', [
@@ -34,10 +35,21 @@ export class LoginComponent {
   passMatcher = new MyErrorStateMatcher();
 
 
-  login(){
-    this.router.navigate(['dashboard']);
-    
+  login(email, password){
+
+    if(!(this.emailFormControl.hasError('email') || this.emailFormControl.hasError('required')) &&
+      !(this.passwordFormControl.hasError('minlength') || this.passwordFormControl.hasError('required'))){
+
+        console.log("Email: " + email + " Password: " + password)
+        this.auth.signIn(email, password);
+
+    }
   }
+
+  googleLogin(){
+    this.auth.googlePopUp();
+  }
+
 }
 
 

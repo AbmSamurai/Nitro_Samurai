@@ -1,0 +1,90 @@
+.team-information{
+    width: 80%;
+    height: 600px;
+    margin: auto;
+  }
+  
+  img{
+    width: 200px;
+    height:  2000px;
+  }
+  
+  .team-logo{
+    margin: auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+  }
+  
+  .team-logo-information-card{
+    margin-top: 45px;
+    display: inline-flex;
+  }
+  
+  .information{
+    margin-left: 45px;
+  }
+  
+  .information > *{
+    margin-top: 35px;
+  }
+  
+  table{
+    margin-top: 45px;
+  }
+  
+  
+  @media (min-width: 320px){
+    .team-logo{
+      width: 120px;
+      height: 120px;
+    }
+  
+    .team-logo-information-card{
+      margin-top: 0PX;
+    }
+    
+  
+    .information > *{
+      margin-top: 15px;
+    }
+  
+    .information > h2{
+      font-size: 20px;
+    }
+    .information > h5{
+      font-size: 16px;
+    }
+  
+    .information > p{
+      font-size: 14px;
+    }
+  }
+  
+  @media (min-width: 576px){ 
+    .team-logo{
+      width: 140px;
+      height: 140px;
+    }
+  
+    .team-logo-information-card{
+      margin-top: 25px;
+    }
+    
+  
+    .information > *{
+      margin-top: 20px;
+    }
+  
+    .information > h2{
+      font-size: 24px;
+    }
+    .information > h5{
+      font-size: 20px;
+    }
+  
+    .information > p{
+      font-size: 16px;
+    }
+  }
+  

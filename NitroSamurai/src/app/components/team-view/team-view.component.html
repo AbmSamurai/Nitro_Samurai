@@ -1,2 +1,29 @@
 
-<app-bottom-navigation></app-bottom-navigation>
+<div class="team-information">
+    <div class="team-logo-information-card">
+       <img class="team-logo" [src]="this.givenTeam.picture | safe">
+       <div class="information">
+           <h2 class="card-title">Team:{{this.givenTeam.teamName}}</h2>
+           <h5 class="card-text">Overall points: {{this.givenTeam.rating}} </h5>
+           <p class="card-text">Last Sprint Points: 33 </p>
+       </div>
+    </div>
+ 
+    <table class="table table-striped table-warsning col-md-5">
+       <thead>
+         <tr>
+           <th>#</th>
+           <th>Full Name</th>
+          </tr>
+       </thead>
+       <tbody *ngFor="let m of this.givenTeam.members; let i = index">
+         <tr >
+           <th scope="row">{{i + 1}}</th>
+           <td>{{m.name}}</td>
+              </tr>
+          </tbody>
+     </table>
+ </div>
+ 
+ 
+ 

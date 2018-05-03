@@ -1,6 +1,9 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Team } from '../../models/Team';
+import { TeamViewComponent } from '../team-view/team-view.component';
+import { UiService } from '../../services/ui.service';
+
 
 
 @Component({
@@ -14,7 +17,8 @@ export class CardComponent implements OnInit {
   
     flipped: boolean;
     constructor(
-      private router: Router // private route: Routes,
+      private router: Router, // private route: Routes,
+      private ui: UiService
     ) {}
   
     ngOnInit() {
@@ -26,6 +30,7 @@ export class CardComponent implements OnInit {
       this.flipped = !this.flipped;
     }
   
+    
     StartReview(selectedTeam: string) {
       console.log(selectedTeam, "is raedy for review");
       this.router.navigate(["review/", selectedTeam]);
@@ -34,5 +39,9 @@ export class CardComponent implements OnInit {
       console.log("clicked on this team:", specifiedTeam.Name);
       // this.dbs.SneakedTeam = specifiedTeam;
       this.router.navigate(["teamView"]);
+    }
+
+    viewTeam(){
+      this.ui.team = this.team;
     }
 }
