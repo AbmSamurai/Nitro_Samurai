@@ -557,8 +557,8 @@ export class DatabaseService {
     return this.criteria_collectionRef.valueChanges();
   }
   updateRating(val: number, TeamName: string) {
-    const ref = this.afStore.doc(`Teams/${TeamName}`);
+    const ref = this.afStore.doc(`teams/${TeamName}`);
     console.log(ref.valueChanges);
-    ref.update({ Rating: val });
+    ref.update({ rating: val });
   }
 }
