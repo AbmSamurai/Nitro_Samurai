@@ -11,7 +11,10 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.auth.user$.pipe(take(1), map(user => !!user), tap(
+    return this.auth.user$.pipe(
+      take(1),
+      map(user => !!user),
+      tap(
         loggedin => {
           if (!loggedin) {
             this.router.navigate(["/login"]);
