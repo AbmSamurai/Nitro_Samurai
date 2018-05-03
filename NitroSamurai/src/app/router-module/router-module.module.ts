@@ -12,7 +12,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'AppComponent', pathMatch: 'full' },
   { path: 'dashboard', component: TopNavigationComponent },
   { path: 'team-view/:teamName', component: AppComponent },
-  { path: 'review/:teamName', component: TeamReviewComponent}
+  { path: 'review/:teamName', component: TeamReviewComponent},
   { path: 'login', component: LoginRegisterComponent },
 ]
 

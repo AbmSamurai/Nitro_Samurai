@@ -160,10 +160,17 @@ export class DatabaseService {
 
 
   pushToTeams(team: string, uid: string, chosenRole: string) {
+    console.log("team", team);
+
     let role = chosenRole;
-    if (role === "leader") {
-      role += "s";
+
+    switch(role){
+      case "Leader": role = "leaders"; break;
+      case "Member": role = "members"; break;
+      case "PO": role = "productOwners"; break;
+      case "Manager": role = ""; break;
     }
+    
     const teams: Observable<any> = this.afStore
       .collection('teams')
       .snapshotChanges()
@@ -179,18 +186,20 @@ export class DatabaseService {
     let flag = true;
     teams.subscribe(response => {
 
-      console.log("Team", response);
       response.map(element => {
-        if (element.name === team && flag) {
+        console.log(element);
+        if (element.teamName === team && flag) {
           const key = element.id;
           const users = element[role];
           if (users === undefined) {
+            console.log('users === undefined');
             const temp = [uid];
             const obj = {};
             obj[role] = temp;
+            
             this.afStore
               .collection('teams')
-              .doc(key)
+              .doc(team)
               .update(obj);
           } else {
             if (!users.includes(uid)) {
