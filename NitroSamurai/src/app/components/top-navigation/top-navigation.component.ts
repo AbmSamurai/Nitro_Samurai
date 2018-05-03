@@ -17,7 +17,7 @@ export class TopNavigationComponent implements OnInit {
 
 
   registerTeam(){
-    this.ui.setModalSection('teamRegister');
-    console.log(this.ui.modalSection);
+    this.ui.showTeamRegistration = true;
+    this.router.navigate(['login']);
   }
 }

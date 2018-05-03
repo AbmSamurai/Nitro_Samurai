@@ -36,7 +36,7 @@ export class DatabaseService {
     private router:Router,
   ) {
     this.users = afStore.collection("users").valueChanges();
-    this.teams = afStore.collection("Teams").valueChanges();
+    this.teams = afStore.collection('teams').valueChanges();
     this.sprints = afStore
       .collection("sprints", ref => ref.orderBy("score", "desc"))
       .snapshotChanges()
@@ -116,7 +116,7 @@ export class DatabaseService {
 
   getTeams(): Observable<any> {
     return this.afStore
-          .collection<Team>("Teams", ref => ref.orderBy("Rating", "desc"))
+          .collection<Team>('teams', ref => ref.orderBy("Rating", "desc"))
           .valueChanges();
   }
 
@@ -165,7 +165,7 @@ export class DatabaseService {
       role += "s";
     }
     const teams: Observable<any> = this.afStore
-      .collection("Teams")
+      .collection('teams')
       .snapshotChanges()
       .map(actions => {
         return actions.map(a => {
@@ -189,7 +189,7 @@ export class DatabaseService {
             const obj = {};
             obj[role] = temp;
             this.afStore
-              .collection("Teams")
+              .collection('teams')
               .doc(key)
               .update(obj);
           } else {
@@ -204,7 +204,7 @@ export class DatabaseService {
             console.log("team", obj);
 
             this.afStore
-              .collection("Teams")
+              .collection('teams')
               .doc(key)
               .update(obj);
           }
@@ -241,7 +241,7 @@ export class DatabaseService {
 
   updateRatings(rating, total) {
     const teams: Observable<any> = this.afStore
-      .collection("Teams")
+      .collection('teams')
       .snapshotChanges()
       .map(actions => {
         return actions.map(a => {
@@ -257,7 +257,7 @@ export class DatabaseService {
         if (element.pos.includes(this.afAuth.auth.currentUser.uid) && flag) {
           const teamRating = element.rating + total;
           this.afStore
-            .collection("Teams")
+            .collection('teams')
             .doc(element.id)
             .update({ rating: teamRating, previousRating: rating });
           flag = false;
@@ -267,7 +267,7 @@ export class DatabaseService {
   }
   getNumSprints() {
     const teams = this.afStore
-      .collection("Teams", ref => ref.orderBy("totalSprints", "desc"))
+      .collection('teams', ref => ref.orderBy("totalSprints", "desc"))
       .valueChanges();
     let flag = true;
     teams.subscribe(response => {
@@ -307,7 +307,7 @@ export class DatabaseService {
 
   editVelocity(velocity: number, teamName: string) {
     const teams: Observable<any> = this.afStore
-      .collection("Teams")
+      .collection('teams')
       .snapshotChanges()
       .map(actions => {
         return actions.map(a => {
@@ -323,7 +323,7 @@ export class DatabaseService {
         if (element.name === teamName && flag) {
           const key = element.id;
           this.afStore
-            .collection("Teams")
+            .collection('teams')
             .doc(key)
             .update({ velocity: velocity });
           flag = false;
@@ -384,7 +384,7 @@ export class DatabaseService {
           totalSprints = element.totalSprints;
           totalSprints++;
           this.afStore
-            .collection("Teams")
+            .collection('teams')
             .doc(element.id)
             .update({ totalSprints: totalSprints });
           this.removeTeamFromUsers(teamName);
@@ -396,7 +396,7 @@ export class DatabaseService {
 
   getTeamSprint(teamName) {
     const teams = this.afStore
-      .collection("Teams", ref => ref.orderBy("totalSprints", "desc"))
+      .collection('teams', ref => ref.orderBy("totalSprints", "desc"))
       .valueChanges();
     this.teamHighestSprint = 0;
     teams.subscribe(response => {
@@ -410,7 +410,7 @@ export class DatabaseService {
 
   getLatestPoComment(team: string) {
     const teams = this.afStore
-      .collection("Teams", ref => ref.orderBy("totalSprints", "desc"))
+      .collection('teams', ref => ref.orderBy("totalSprints", "desc"))
       .valueChanges();
     this.teamHighestSprint = 0;
     teams.subscribe(response => {
@@ -434,7 +434,7 @@ export class DatabaseService {
   rateTeam(name: string, rating: number) {
     this.getTeamSprint(name);
     const teams: Observable<any> = this.afStore
-      .collection("Teams")
+      .collection('teams')
       .snapshotChanges()
       .map(actions => {
         return actions.map(a => {
