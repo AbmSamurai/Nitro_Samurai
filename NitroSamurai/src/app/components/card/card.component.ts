@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Team } from '../../models/Team';
 import { TeamViewComponent } from '../team-view/team-view.component';
 import { UiService } from '../../services/ui.service';
+import { CacheService } from '../../services/cache.service';
 
 
 
@@ -18,7 +19,8 @@ export class CardComponent implements OnInit {
     flipped: boolean;
     constructor(
       private router: Router, // private route: Routes,
-      private ui: UiService
+      private ui: UiService,
+      private cache: CacheService,
     ) {}
   
     ngOnInit() {
@@ -35,6 +37,7 @@ export class CardComponent implements OnInit {
       console.log(selectedTeam, "is raedy for review");
       this.router.navigate(["review/", selectedTeam]);
     }
+
     sendTeam(specifiedTeam) {
       console.log("clicked on this team:", specifiedTeam.Name);
       // this.dbs.SneakedTeam = specifiedTeam;
@@ -42,6 +45,7 @@ export class CardComponent implements OnInit {
     }
 
     viewTeam(){
+      this.cache.setSelectedTeam(this.team);
       this.ui.team = this.team;
     }
 }

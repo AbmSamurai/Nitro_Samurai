@@ -7,7 +7,7 @@ export class UiService {
   showTopNav: boolean = false;
   showBottomNav: boolean = false;
   showTeamRegistration: boolean = false;
-  isManager: boolean = true;
+  isManager: boolean = false;
   showSpinner: boolean = false;
   modalActive: boolean = false;
   modalSection: string = "";

@@ -3,6 +3,9 @@ import { DatabaseService } from '../../services/database.service';
 import { Router } from '@angular/router';
 import { Team } from '../../models/Team';
 import { UiService } from '../../services/ui.service';
+import { User } from 'firebase/app';
+import { CacheService } from '../../services/cache.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-team-view',
@@ -11,12 +14,29 @@ import { UiService } from '../../services/ui.service';
 })
 export class TeamViewComponent implements OnInit {
 
-
+  subscription: Subscription;
+  teamMembers: any[] = [];
   @Input() givenTeam: Team;
-  constructor(private db: DatabaseService,private router:Router, protected ui: UiService) { }
+  constructor(private db: DatabaseService,private router:Router, protected ui: UiService, private cache: CacheService) {
+  }
 
   ngOnInit() {
-    console.log("Team : ", this.givenTeam);
-  }
     
+     console.log("Team : ", this.givenTeam.teamName);
+    this.teamMembers = [];
+     this.subscription = this.db.getTeamMembers(this.givenTeam.teamName).subscribe(response =>{
+      this.teamMembers = response;
+      this.subscription.unsubscribe();
+    });
+    // console.log('teamMembers',this.cache.teamMembers);
+  }
+
+    log(member: string){
+      // console.log("Member : ", member);
+    }
+
+    getTeamMembers(){
+      // console.log(this.cache.teamMembers);
+      return  this.teamMembers;
+    }
 }

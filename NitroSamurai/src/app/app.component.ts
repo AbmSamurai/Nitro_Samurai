@@ -11,7 +11,7 @@ import { CacheService } from './services/cache.service';
 export class AppComponent {
   title = 'app';
 
-  constructor(protected ui:UiService){
+  constructor(protected ui:UiService, protected cache: CacheService){
 
   }
 }

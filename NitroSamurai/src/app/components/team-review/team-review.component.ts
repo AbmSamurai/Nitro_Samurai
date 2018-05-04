@@ -7,8 +7,8 @@ import {
   FormControl,
   FormArray
 } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import { Criteria } from "../../models/criteria";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Criteria,Question } from "../../models/criteria";
 
 @Component({
   selector: "app-team-review",
@@ -21,14 +21,15 @@ export class TeamReviewComponent implements OnInit {
   Team: string;
   visible: boolean = false;
   Stars: FormArray = new FormArray([]);
-  criteria: Criteria[];
+  criteria: Question[];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private router: Router,
     private dbserv: DatabaseService
   ) {
-    this.Team = this.route.snapshot.paramMap.get("teamname");
+    this.Team = this.route.snapshot.paramMap.get("teamName");
     this.initForm();
     this.populateStars();
     this.ratingForm = fb.group({
@@ -57,6 +58,7 @@ export class TeamReviewComponent implements OnInit {
     const rating = review.stars.reduce((total, val) => total + val);
     this.dbserv.updateRating(rating, this.Team);
     this.ratingForm.reset();
+    this.router.navigate(['/dashboard']);
   }
   populateStars(): void {
     let index = 0;

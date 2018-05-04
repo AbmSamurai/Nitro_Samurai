@@ -32,6 +32,9 @@ import { ModalComponent } from './components/modal/modal.component';
 import { TeamNavigationComponent } from './components/team-navigation/team-navigation.component';
 import { CacheService } from './services/cache.service';
 import { TeamReviewComponent } from './components/team-review/team-review.component';
+import { NotFoundComponent } from "./components/not-found/not-found.component";
+import { AuthGuard } from "./services/auth.guard";
+
 
 
 
@@ -61,7 +64,8 @@ var config = {
     SafePipe,
     ModalComponent,
     TeamNavigationComponent,
-    TeamReviewComponent
+    TeamReviewComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +85,7 @@ var config = {
   ],
   providers: [
    {provide:ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},AngularFireAuth,DatabaseService,AuthenticationService,UiService, CacheService
-  ],
+  ,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

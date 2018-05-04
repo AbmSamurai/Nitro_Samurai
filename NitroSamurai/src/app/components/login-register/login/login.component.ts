@@ -35,9 +35,21 @@ export class LoginComponent {
   passMatcher = new MyErrorStateMatcher();
 
 
-  login(){
-    this.router.navigate(['/dashboard']);
+  login(email, password){
+
+    if(!(this.emailFormControl.hasError('email') || this.emailFormControl.hasError('required')) &&
+      !(this.passwordFormControl.hasError('minlength') || this.passwordFormControl.hasError('required'))){
+
+        console.log("Email: " + email + " Password: " + password)
+        this.auth.signIn(email, password);
+
+    }
   }
+
+  googleLogin(){
+    this.auth.googlePopUp();
+  }
+
 }
 
 
