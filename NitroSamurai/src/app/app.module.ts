@@ -34,6 +34,7 @@ import { CacheService } from './services/cache.service';
 import { TeamReviewComponent } from './components/team-review/team-review.component';
 import { NotFoundComponent } from "./components/not-found/not-found.component";
 import { AuthGuard } from "./services/auth.guard";
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 
 
@@ -65,7 +66,8 @@ var config = {
     ModalComponent,
     TeamNavigationComponent,
     TeamReviewComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

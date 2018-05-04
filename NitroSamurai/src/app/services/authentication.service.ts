@@ -20,7 +20,7 @@ export class AuthenticationService {
         .switchMap(user => {
         if(user){
              console.log(this.afs.collection<User>(`users`,ref => ref.where('user','==', user.uid)).valueChanges());
-           return this.afs.collection<User>(`users`,ref => ref.where('user','==', user.uid)).valueChanges();
+             return this.afs.collection<User>(`users`,ref => ref.where('user','==', user.uid)).valueChanges();
     
         }else{
             return Observable.of(null);
@@ -112,4 +112,12 @@ export class AuthenticationService {
         });
     }
 
+    resetPassword(email:string){
+       // this.afAuth.auth
+        return this.afAuth.auth.sendPasswordResetEmail(email).then(()=>{
+            console.log("email sent")
+        }).catch((error)=>{
+            console.log('error')
+        })
+    }
 }
