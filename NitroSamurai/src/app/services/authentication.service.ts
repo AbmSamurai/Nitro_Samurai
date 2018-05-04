@@ -19,7 +19,9 @@ export class AuthenticationService {
         this.user$ = this.afAuth.authState
         .switchMap(user => {
         if(user){
-           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+             console.log(this.afs.collection<User>(`users`,ref => ref.where('user','==', user.uid)).valueChanges());
+           return this.afs.collection<User>(`users`,ref => ref.where('user','==', user.uid)).valueChanges();
+    
         }else{
             return Observable.of(null);
         }

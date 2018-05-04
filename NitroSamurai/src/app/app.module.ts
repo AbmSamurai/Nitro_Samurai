@@ -64,7 +64,7 @@ var config = {
     SafePipe,
     ModalComponent,
     TeamNavigationComponent,
-    TeamReviewComponent
+    TeamReviewComponent,
     NotFoundComponent
   ],
   imports: [
@@ -85,7 +85,7 @@ var config = {
   ],
   providers: [
    {provide:ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},AngularFireAuth,DatabaseService,AuthenticationService,UiService, CacheService
-  ],
+  ,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
