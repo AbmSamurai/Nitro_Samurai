@@ -8,7 +8,7 @@ import {
   FormArray
 } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Criteria } from "../../models/criteria";
+import { Criteria,Question } from "../../models/criteria";
 
 @Component({
   selector: "app-team-review",
@@ -21,7 +21,7 @@ export class TeamReviewComponent implements OnInit {
   Team: string;
   visible: boolean = false;
   Stars: FormArray = new FormArray([]);
-  criteria: Criteria[];
+  criteria: Question[];
 
   constructor(
     private fb: FormBuilder,

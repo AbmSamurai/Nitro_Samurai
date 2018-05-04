@@ -3,7 +3,7 @@ import { AngularFireAuth } from 'angularfire2/Auth';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Team } from '../models/Team';
-import { Criteria } from '../models/criteria';
+import { Criteria, Question } from "../models/criteria";
 import { AngularFireStorage } from 'angularfire2/storage';
 import { UiService } from './ui.service';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class DatabaseService {
   displayPercentage: number;
   currentLatestSprintObject;
 
-  criteria_collectionRef = this.afStore.collection<Criteria>("criteria");
+  criteria_collectionRef = this.afStore.collection<Question>("criteria");
   teams_collectionRef = this.afStore.collection<Team>("teams");
   constructor(
     private afStore: AngularFirestore,
