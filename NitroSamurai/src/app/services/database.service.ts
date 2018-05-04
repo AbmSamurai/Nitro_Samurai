@@ -82,6 +82,10 @@ export class DatabaseService {
   }
 
 
+  getTeamMembers(team: any){
+    return this.afStore.collection('users', ref => ref.where('team', '==', team)).valueChanges();
+  }
+
     uploadProfilePicture(event, name) {
         console.log(name);
         const file = event.target.files[0];

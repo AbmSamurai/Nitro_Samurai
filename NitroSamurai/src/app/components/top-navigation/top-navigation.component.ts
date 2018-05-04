@@ -14,10 +14,12 @@ export class TopNavigationComponent implements OnInit {
   constructor(protected ui: UiService, protected router: Router, protected cache: CacheService, private auth:AuthenticationService) { }
 
   ngOnInit() {
+    console.log(this.cache.teams);
   }
 
 
   registerTeam(){
+    
     this.ui.showTeamRegistration = true;
     this.router.navigate(['login']);
   }
