@@ -3,5 +3,5 @@
     <div class="spinner" *ngIf= 'cache.teams.length == 0'>
        <mat-spinner></mat-spinner>
    </div> 
- <app-card *ngFor ='let team of this.db.teams | async' class="crd" [team]='team'></app-card>
+ <app-card *ngFor ='let team of this.cache.teams ' class="crd" [team]='team'></app-card>
 </div> 

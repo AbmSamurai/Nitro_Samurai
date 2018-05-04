@@ -32,13 +32,6 @@ export class DashboardComponent implements OnInit {
 
       userSubscription.unsubscribe();
     })
-
-    this.db.getTeams().subscribe( response =>{
-      console.log('Response',response);
-    this.teams = response as Team[];
-    this.cache.teams = this.teams;
-    }) ;
-
   }
 
   getTeams(){
