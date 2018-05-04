@@ -36,7 +36,7 @@ export class DatabaseService {
     private router:Router,
   ) {
     this.users = afStore.collection("users").valueChanges();
-    this.teams = afStore.collection('teams').valueChanges();
+    this.teams = afStore.collection("teams").valueChanges();
     this.sprints = afStore
       .collection("sprints", ref => ref.orderBy("score", "desc"))
       .snapshotChanges()

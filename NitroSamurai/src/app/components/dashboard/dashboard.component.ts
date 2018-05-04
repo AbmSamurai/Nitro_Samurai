@@ -19,7 +19,8 @@ export class DashboardComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.auth.user$.subscribe(response => {
+    console.log("dashboard");
+    var userSubscription = this.auth.user$.subscribe(response => {
       console.log("Curr user", response);
       console.log(response[0].role == "Manager");
       if(response[0].role === "Manager"){
@@ -27,14 +28,17 @@ export class DashboardComponent implements OnInit {
       }else{
         this.ui.isManager = false;
       } 
+
+
+      userSubscription.unsubscribe();
     })
-    this.db.teams.subscribe( response =>{
+
+    this.db.getTeams().subscribe( response =>{
+      console.log('Response',response);
     this.teams = response as Team[];
-    console.log(this.teams);
     this.cache.teams = this.teams;
     }) ;
 
-    
   }
 
   getTeams(){

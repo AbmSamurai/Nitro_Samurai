@@ -6,7 +6,7 @@ import { CacheService } from './services/cache.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [CacheService]
+  providers: []
 })
 export class AppComponent {
   title = 'app';
