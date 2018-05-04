@@ -14,7 +14,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class DashboardComponent implements OnInit {
 
   teams: Team[];
-  constructor(protected db: DatabaseService, protected ui:UiService, private cache: CacheService, private auth: AuthenticationService) {
+  constructor(protected db: DatabaseService, protected ui:UiService, protected cache: CacheService, private auth: AuthenticationService) {
     ui.showTopNav = true;
    }
 
