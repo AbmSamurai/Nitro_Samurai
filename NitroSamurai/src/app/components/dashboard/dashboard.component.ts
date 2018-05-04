@@ -13,18 +13,12 @@ import { CacheService } from '../../services/cache.service';
 export class DashboardComponent implements OnInit {
 
   teams: Team[];
-  constructor(protected db: DatabaseService, protected ui:UiService, private cache: CacheService) {
+  constructor(protected db: DatabaseService, protected ui:UiService, protected cache: CacheService) {
     ui.showTopNav = true;
    }
 
   ngOnInit() {
-   this.db.teams.subscribe( response =>{
-    this.teams = response as Team[];
-    console.log(this.teams);
-    this.cache.teams = this.teams;
-    }) ;
-
-    
+   this.teams = this.cache.teams; 
   }
 
   getTeams(){

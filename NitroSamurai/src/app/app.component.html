@@ -1,2 +1,2 @@
-<app-modal [team] = 'ui.team'></app-modal>
+<app-modal *ngIf = 'cache.getActive()' [team] = 'cache.getSelectedTeam()'></app-modal>
 <router-outlet ></router-outlet>
