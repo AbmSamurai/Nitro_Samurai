@@ -2,7 +2,7 @@
   <form class="form">
     
     <mat-form-field class="full-width">
-      <input [(ngModel)] = "email" matInput placeholder="Email" [formControl]="emailFormControl"
+      <input [(ngModel)] = "email" name="email" matInput placeholder="Email" [formControl]="emailFormControl"
             [errorStateMatcher]="matcher">
       <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
       <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -14,7 +14,7 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
-        <input [(ngModel)] = "password" type = "password" matInput placeholder="Password" [formControl]="passwordFormControl"
+        <input [(ngModel)] = "password" name="password" type = "password" matInput placeholder="Password" [formControl]="passwordFormControl"
               [errorStateMatcher]="passMatcher">
         <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
         <mat-error *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
