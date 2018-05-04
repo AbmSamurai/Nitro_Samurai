@@ -14,7 +14,7 @@ export const routes: Routes = [
   { path: 'dashboard', component: TopNavigationComponent, canActivate:[AuthGuard] },
   { path: 'team-view/:teamName', component: AppComponent ,canActivate:[AuthGuard]},
   { path: 'review/:teamName', component: TeamReviewComponent,canActivate:[AuthGuard]},
-  { path: 'login', component: LoginRegisterComponent,canActivate:[AuthGuard] },
+  { path: 'login', component: LoginRegisterComponent },
   {path:"**" ,component:NotFoundComponent}
 ]
 
