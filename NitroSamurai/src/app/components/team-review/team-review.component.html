@@ -4,9 +4,9 @@
   <div class="_header">"Time to review {{Team}}"</div>
   <form [formGroup]="ratingForm" (ngSubmit)="submitRating(ratingForm.value)">
     
-    <div class="rating col-md-12 col-xl-12 col-lg-12" *ngFor="let criteria of criteria ; index as l">
+    <div class="rating col-md-12 col-xl-12 col-lg-12" *ngFor="let criteria of this.criteria ; index as l">
   
-      <div class="question">{{criteria.Question}}</div>
+      <div class="question">{{criteria.question}}</div>
   
       <fieldset formArrayName="stars" class="rating ">
   

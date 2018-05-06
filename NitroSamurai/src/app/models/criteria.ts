@@ -1,7 +1,15 @@
-export class Criteria {
-  Questions: Array<Question> = new Array<Question>();
+export class Criteria{
+  Question: Array<any[]>;
+
+  constructor(ques){
+      this.Question = ques.question;
+  }
 }
 
-export class Question {
+export class Question{
   Question: string;
+
+  // constructor(ques){
+  //     this.Question = ques;
+  // }
 }

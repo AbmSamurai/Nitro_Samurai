@@ -1,0 +1,12 @@
+<div style="text-align: center;">
+  <button class="btn butt" (click) = "setView('criteria')">Criteria</button>
+  <button class="btn butt" (click) = "setView('review')">Review</button>
+</div>
+
+<div *ngIf = "view == 'criteria'">
+  <app-criteria></app-criteria>
+</div>
+
+<div *ngIf = "view == 'review'">
+  <app-review></app-review>
+</div>

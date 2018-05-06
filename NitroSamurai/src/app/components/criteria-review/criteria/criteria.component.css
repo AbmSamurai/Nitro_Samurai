@@ -1,0 +1,78 @@
+.reviewLabel{
+    font-size: 72px;
+    margin: 2%; 
+}
+
+.criteriaLabel{
+    font-size: 16px;
+    margin: 1%;
+}
+
+.addInput{
+    width: 20%;
+    border: 1px solid #FFA000;
+    margin: 2%;
+}
+
+
+.addCriteria,.question{
+    width: 13%;
+    display:inline-flex;
+    justify-content: space-between;
+}
+
+.addCriteria{
+    cursor: pointer;
+    align-content: center;
+    background-color:#534BAE;
+    border-radius: 4px;
+    padding: 10px;
+    color: white;
+}
+
+label{
+    cursor: pointer;
+}
+
+.addCriteria:hover{
+    opacity: 0.8;
+}
+
+.done{
+    background-color:  #30F282;
+    color: white;
+    border-radius: 5px;
+    margin-top:40px;
+    margin-right: 5px;
+}
+
+ul{
+    list-style-type: none;
+}
+.remove{
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+
+}
+
+.cancel{
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    margin-top: 40px;
+}
+mat-icon{
+    cursor: pointer;
+}
+
+mat-icon:hover{
+    opacity: 0.8;
+}
+
+.newQuestion{
+    display: inline-flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+}

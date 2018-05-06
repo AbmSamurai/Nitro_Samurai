@@ -18,10 +18,8 @@ export class TopNavigationComponent implements OnInit {
   }
 
 
-  registerTeam(){
-    
-    this.ui.showTeamRegistration = true;
-    this.router.navigate(['login']);
+  adminPanel(){
+    this.router.navigate(['admin']);
   }
 
   logout(){

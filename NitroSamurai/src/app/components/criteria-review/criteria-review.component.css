@@ -1,0 +1,15 @@
+.butt{
+    /* max-width: 330px; */
+    /* padding: 15px; */
+    margin: 0 auto;
+    background-color:#534BAE;
+    border-radius: 0px;
+    color: white;
+    margin-top: 5%;
+    width: 30%;
+    
+}
+
+.butt:hover{
+    opacity: 0.8;
+}

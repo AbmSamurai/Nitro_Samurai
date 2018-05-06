@@ -1,0 +1,20 @@
+.butt{
+    width: 35%;
+    height: 50px;
+    background-color: #FFA000;
+    border-radius: 5px;
+    color: #fff;
+    margin: 2%;
+    /* display:flex; */
+    /* align-content: center; */
+    /* float:right; */
+}
+
+.butt:hover{
+    opacity: 0.8;
+}
+
+.reviewLabel{
+    font-size: 72px;
+    margin: 2%; 
+}
