@@ -8,11 +8,18 @@ export class CacheService {
   selectedTeam: Team = new Team();
   active: boolean = false;
   teams: Team[] = [];
+  reviewState: boolean;
 
   constructor(private db: DatabaseService) { 
     this.db.teams.subscribe(response =>{
       this.teams =  response as Team[];
       console.log(this.teams);
+    });
+
+
+    let subscription = this.db.getReview().subscribe(response =>{
+      this.reviewState = response as boolean;
+      console.log('Review State',this.reviewState['reviewOpen']);
     });
   }
 
@@ -32,5 +39,9 @@ export class CacheService {
 
   getActive(){
     return this.active;
+  }
+
+  getReview(){
+    return this.reviewState['reviewOpen'];
   }
 }

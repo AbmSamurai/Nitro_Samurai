@@ -7,6 +7,7 @@ import { AppComponent } from '../app.component';
 import { LoginRegisterComponent } from '../components/login-register/login-register.component';
 import { TopNavigationComponent } from '../components/top-navigation/top-navigation.component';
 import { NotFoundComponent } from '../components/not-found/not-found.component';
+import { CriteriaReviewComponent } from '../components/criteria-review/criteria-review.component';
 
 
 export const routes: Routes = [
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'team-view/:teamName', component: AppComponent ,canActivate:[AuthGuard]},
   { path: 'review/:teamName', component: TeamReviewComponent,canActivate:[AuthGuard]},
   { path: 'login', component: LoginRegisterComponent },
+  { path: 'admin', component: CriteriaReviewComponent },
   {path:"**" ,component:NotFoundComponent}
 ]
 
