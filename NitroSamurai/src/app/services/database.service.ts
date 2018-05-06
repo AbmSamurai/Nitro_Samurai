@@ -79,6 +79,7 @@ export class DatabaseService {
         .doc(teamName + "-" + (sprintNum - 2))
         .update({ open: false });
     }
+    console.log(this.teamHighestSprint);
     this.teamHighestSprint++;
   }
 
@@ -359,6 +360,7 @@ export class DatabaseService {
       });
 
     let flag = true;
+    console.log('TeamName', teamName);
     const teamId = teamName + "-" + (this.teamHighestSprint + 1);
     const prevSprintId = teamName + "-" + this.teamHighestSprint;
 
@@ -416,7 +418,9 @@ export class DatabaseService {
     teams.subscribe(response => {
       response.map(element => {
         if (element["name"] === teamName) {
+          console.log('Element', element);
           this.teamHighestSprint = element["totalSprints"];
+          console.log('teamHighestSprint', this.teamHighestSprint);
         }
       });
     });

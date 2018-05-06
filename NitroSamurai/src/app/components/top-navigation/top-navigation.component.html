@@ -14,7 +14,8 @@
   </mat-tab>
   <mat-tab label="My Team" disableRipple="true" *ngIf='cache.teams.length != 0'>
     <app-team-navigation></app-team-navigation>
-    <app-team-view  [givenTeam]='this.cache.teams[0]' ></app-team-view>
+    <app-team-view *ngIf='ui.getTeamSection() == "details"' [givenTeam]='this.cache.teams[0]' ></app-team-view>
+    <app-sprint-details  *ngIf='ui.getTeamSection() == "sprint"'></app-sprint-details>
   </mat-tab>
 </mat-tab-group>
 

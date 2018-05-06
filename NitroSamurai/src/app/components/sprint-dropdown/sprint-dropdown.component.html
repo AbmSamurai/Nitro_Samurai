@@ -1,0 +1,6 @@
+<mat-form-field >
+<mat-select placeholder="Specify which sprint">
+    <mat-option>None</mat-option>
+    <mat-option *ngFor="let sprint of sprints; index as i" [value]="sprint">Sprint {{i+1}}</mat-option>
+  </mat-select>
+</mat-form-field>
