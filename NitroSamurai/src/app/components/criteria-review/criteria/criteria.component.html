@@ -1,0 +1,22 @@
+<div style = "text-align: center;">
+  <label class = "reviewLabel">Criteria</label><br>
+  <ul>
+    <li *ngFor = "let q of Criteria let i = index">
+        <div  class="question">
+            <label class="criteriaLabel"> Q{{i + 1}} : {{ q.question }}</label> 
+              <mat-icon (click) = "delete(q.question)" class="remove">remove</mat-icon>
+          </div>
+    </li>
+  </ul>
+  <div style = "text-align: center;" *ngIf = "add == true" class="newQuestion">
+    <input [(ngModel)] = "addNew" class="addInput btn" type="text">
+      <mat-icon (click) = "addCriteria(addNew)" class="done">done</mat-icon>
+      <mat-icon (click) = "showAdd(false)" class="cancel">clear</mat-icon>
+  </div>
+  <br>
+  <div class="addCriteria" (click) = "showAdd(true)"  *ngIf = "!add == true">
+    <label>Add New Criteria</label>
+    <mat-icon >add</mat-icon> 
+  </div>
+
+</div>

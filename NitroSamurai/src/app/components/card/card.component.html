@@ -3,7 +3,7 @@
   <mat-card-subtitle  class="ralewayfont-regular">Points: {{ team.rating }}</mat-card-subtitle >
   <img mat-card-sm image  [src]= "team.picture | safe">
   <mat-card-actions>
-    <button mat-raised-button (click)='StartReview(team.teamName)'>Review</button>
+    <button mat-raised-button (click)='StartReview(team.teamName)' *ngIf='this.cache.getReview()'>Review</button>
     <button mat-raised-button  data-toggle="modal" data-target="#exampleModal" (click) = 'viewTeam()'>View</button>
   </mat-card-actions>
 </mat-card>

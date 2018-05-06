@@ -569,9 +569,55 @@ export class DatabaseService {
   getCriteria() {
     return this.criteria_collectionRef.valueChanges();
   }
+
   updateRating(val: number, TeamName: string) {
     const ref = this.afStore.doc(`teams/${TeamName}`);
     console.log(ref.valueChanges);
     ref.update({ rating: val });
+  }
+
+
+  createCriteria(question) {
+    let mans = this.criteria_collectionRef.add(Object.assign({ question: question })).then(success => {
+        console.log('success!');
+    }).catch(err => {
+        console.log(err.message);
+    });
+  }
+
+  deleteCriteria(question) {
+    console.log("Haybo");this.criteria_collectionRef.ref.where("question", "==", question)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+            
+            this.delete(doc.id);
+        });
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
+
+    }
+
+    delete(key){
+      this.afStore.collection("criteria").doc(key).delete().then(function() {
+          console.log("Document successfully deleted!");
+      }).catch(function(error) {
+          console.error("Error removing document: ", error);
+      });
+  }
+
+
+  openReview(){
+    this.afStore.collection('review').doc('reviewState').set({reviewOpen: true});
+  }
+
+  closeReview(){
+    this.afStore.collection('review').doc('reviewState').set({reviewOpen: false});
+  }
+
+  getReview(){
+    return this.afStore.collection('review').doc('reviewState').valueChanges();
   }
 }

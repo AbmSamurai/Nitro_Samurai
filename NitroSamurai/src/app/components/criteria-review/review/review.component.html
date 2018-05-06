@@ -1,0 +1,7 @@
+<div style = "text-align: center;">
+  <label class = "reviewLabel">Review</label><br>
+  <h1 *ngIf='this.cache.getReview() == true'>Review currently in Progress</h1>
+  <button class = "btn butt" (click) = 'openReview()'>Open Review</button>
+  <br>
+  <button class = "btn butt" (click) = 'closeReview()'>Close Review</button>
+</div>
