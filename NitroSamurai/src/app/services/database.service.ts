@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/Auth';
 import { Observable } from 'rxjs/Observable';
@@ -569,9 +570,19 @@ export class DatabaseService {
   getCriteria() {
     return this.criteria_collectionRef.valueChanges();
   }
+
   updateRating(val: number, TeamName: string) {
     const ref = this.afStore.doc(`teams/${TeamName}`);
+    let mPreviousRating:number = 0;
     console.log(ref.valueChanges);
-    ref.update({ rating: val });
+    this.teams_collectionRef.doc<Team>(`${TeamName}`)
+     .valueChanges()
+     .subscribe(response =>{
+        if(response.rating !== 0){
+          mPreviousRating = response.rating
+        } 
+        
+     })
+      ref.update({ rating: (mPreviousRating + val) });
   }
 }
