@@ -1,7 +1,7 @@
 export class User{
     name:string;
     role: string;
-    teamName:string;
+    team:string;
     totalSprints: number;
     userUID: string;
 }

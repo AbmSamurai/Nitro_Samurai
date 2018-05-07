@@ -1,0 +1,55 @@
+<div class="container">
+
+  <div class="row _headings">
+
+    <!-- Column For Sprint Start Details -->
+    <div class="col" role="form">
+
+
+      <h3>Sprint : {{db.teamHighestSprint+1}}{{newSprintText}}</h3>
+      <form [formGroup]="sprintForm">
+       
+        <mat-form-field>
+          <input matInput formControlName="points" type="number" placeholder="Sprint Points" required>
+        </mat-form-field>
+        <!-- <div class="alert" *ngIf="!sprintForm.controls['points'].valid && sprintForm.controls['points'].touched">{{ titleAlert }}</div> -->
+<div class="alert alert-danger"*ngIf="!sprintForm?.get('points').valid && sprintForm?.get('points').touched"><h6>Sprint Points need to be greater than 0</h6></div>
+
+        <mat-form-field>
+          <input matInput [min]="minDate" [(ngModel)]="startDate" formControlName="Start" [matDatepicker]="Start" placeholder="Sprint Start" required [disabled]="!sprintForm?.get('points').valid && sprintForm?.get('points').touched">
+          <mat-datepicker-toggle matSuffix [for]="Start"></mat-datepicker-toggle>
+          <mat-datepicker #Start touchUi="true"></mat-datepicker>
+        </mat-form-field>
+
+
+        <mat-form-field>
+          <input matInput formControlName="End" [matDatepicker]="End" placeholder="Sprint End" [(ngModel)]="endDate" required  [disabled]="!sprintForm?.get('points').valid && sprintForm?.get('points').touched"  >
+          <mat-datepicker-toggle matSuffix [for]="End"></mat-datepicker-toggle>
+          <mat-datepicker #End touchUi="true"></mat-datepicker>
+        </mat-form-field>
+         <!-- {{sprintForm.value | json}} -->
+      </form>
+
+      
+    </div>
+
+    
+    <!-- Column for Previous sprint -->
+    <div class="col offset-md-3">
+      <h3>Previous Sprint</h3>
+      <app-sprint-dropdown [sprints]="db.sprints | async"></app-sprint-dropdown>
+      <div class="margin-top-101 offset-4">
+        <a href="#">View Sprint</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center ">
+    <div class="col offset-2 ">
+      <a role="button" class="btn" (click)="start(db.teamHighestSprint+1)" >Start Sprint</a>
+    </div>
+    <div class="col">
+      <a role="button" class="btn " (click)="end()" >End Sprint</a>
+    </div>
+  </div>
+</div>

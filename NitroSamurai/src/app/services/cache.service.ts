@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Team } from '../models/Team';
 import { DatabaseService } from './database.service';
+import { AuthenticationService } from './authentication.service';
+import { User } from '../models/User';
 
 @Injectable()
 export class CacheService {
@@ -9,8 +11,9 @@ export class CacheService {
   active: boolean = false;
   teams: Team[] = [];
   reviewState: boolean;
+  user;
 
-  constructor(private db: DatabaseService) { 
+  constructor(private db: DatabaseService, private auth: AuthenticationService) { 
     this.db.teams.subscribe(response =>{
       this.teams =  response as Team[];
       console.log(this.teams);

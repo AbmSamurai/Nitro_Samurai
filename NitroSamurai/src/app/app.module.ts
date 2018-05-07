@@ -37,6 +37,8 @@ import { AuthGuard } from "./services/auth.guard";
 import { CriteriaReviewComponent } from './components/criteria-review/criteria-review.component';
 import { CriteriaComponent } from './components/criteria-review/criteria/criteria.component';
 import { ReviewComponent } from './components/criteria-review/review/review.component';
+import { SprintDetailsComponent } from './components/sprint-details/sprint-details.component';
+import { SprintDropdownComponent } from './components/sprint-dropdown/sprint-dropdown.component';
 
 
 
@@ -72,6 +74,9 @@ var config = {
     CriteriaReviewComponent,
     CriteriaComponent,
     ReviewComponent,
+    SprintDetailsComponent,
+    SprintDropdownComponent,
+
   ],
   imports: [
     BrowserModule,
