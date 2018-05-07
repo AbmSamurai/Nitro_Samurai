@@ -3,8 +3,8 @@
     <div class="team-logo-information-card">
        <img class="team-logo" [src]="this.givenTeam.picture | safe">
        <div class="information">
-           <h2 class="card-title">Team:{{this.givenTeam.teamName}}</h2>
-           <h5 class="card-text">Overall points: {{this.givenTeam.rating}} </h5>
+           <h2 class="card-title">Team:{{this.cache.givenTeam[0].teamName}}</h2>
+           <h5 class="card-text">Overall points: {{this.cache.givenTeam[0].rating}} </h5>
            <p class="card-text">Last Sprint Points: 33 </p>
        </div>
     </div>
@@ -19,7 +19,7 @@
        <tbody *ngFor="let m of getTeamMembers(); let i = index">
          <tr >
            <th scope="row">{{i + 1}}</th>
-           <td>{{m.name}}</td>
+           <td>{{m.name}}: {{m.role}}</td>
               </tr>
           </tbody>
      </table>

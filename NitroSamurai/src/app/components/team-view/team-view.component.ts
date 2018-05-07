@@ -16,15 +16,15 @@ export class TeamViewComponent implements OnInit {
 
   subscription: Subscription;
   teamMembers: any[] = [];
-  @Input() givenTeam: Team;
-  constructor(private db: DatabaseService,private router:Router, protected ui: UiService, private cache: CacheService) {
+  @Input() givenTeam: Team = new Team();
+  constructor(private db: DatabaseService,private router:Router, protected ui: UiService, protected cache: CacheService) {
   }
 
   ngOnInit() {
     
-     console.log("Team : ", this.givenTeam.teamName);
+     console.log("Team : ", this.givenTeam);
     this.teamMembers = [];
-     this.subscription = this.db.getTeamMembers(this.givenTeam.teamName).subscribe(response =>{
+     this.subscription = this.db.getTeamMembers(this.cache.givenTeam[0].teamName).subscribe(response =>{
       this.teamMembers = response;
       this.subscription.unsubscribe();
     });

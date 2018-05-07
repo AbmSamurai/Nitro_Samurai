@@ -10,6 +10,7 @@ export class CacheService {
   selectedTeam: Team = new Team();
   active: boolean = false;
   teams: Team[] = [];
+  givenTeam;
   reviewState: boolean;
   user;
 
@@ -17,6 +18,7 @@ export class CacheService {
     this.db.teams.subscribe(response =>{
       this.teams =  response as Team[];
       console.log(this.teams);
+      this.getGivenTeam();
     });
 
 
@@ -26,7 +28,11 @@ export class CacheService {
     });
   }
 
- 
+  getGivenTeam(){
+    console.log( this.teams);
+    this.givenTeam = this.teams.filter(team => team.teamName == "ABM")
+    console.log('GIVEN TEAM',this.givenTeam[0]);
+  }
 
   setSelectedTeam(team: Team){
     this.selectedTeam  = team;
