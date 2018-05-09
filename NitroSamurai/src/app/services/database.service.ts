@@ -140,12 +140,12 @@ export class DatabaseService {
     } else if (role === "po") {
       this.afStore.firestore
         .collection("users")
-        .add({ user: uid, role: role, team: team, name: name });
+        .add({ userUID: uid, role: role, team: team, name: name });
       this.pushToTeams(team, uid, role);
     } else {
       // tslint:disable-next-line:max-line-length
       this.afStore.firestore.collection("users").add({
-        user: uid,
+        userUID: uid,
         role: role,
         team: team,
         name: name
