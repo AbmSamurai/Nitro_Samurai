@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { DatabaseService } from './database.service';
+import { CacheService } from './cache.service';
+
 
 
 @Injectable()
@@ -14,14 +16,14 @@ export class AuthenticationService {
     loggedInWithGoogle = false;
     user$ :Observable<User>;
 
+    userUID: any;
+
     constructor(private afAuth: AngularFireAuth, private router: Router, private db: DatabaseService,private afs:AngularFirestore) { 
         
         this.user$ = this.afAuth.authState
-        .switchMap(user => {
-            console.log('USER UID DB', this.getUID());
-            console.log('USER UID', user.uid);
-           
+        .switchMap(user => {           
         if(user){
+            this.userUID = user.uid;
             return this.afs.collection<User>(`users`,ref => ref.where('userUID','==', user.uid)).valueChanges();
     
         }else{

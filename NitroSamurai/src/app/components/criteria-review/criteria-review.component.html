@@ -1,6 +1,7 @@
 <div style="text-align: center;">
   <button class="btn butt" (click) = "setView('criteria')">Criteria</button>
   <button class="btn butt" (click) = "setView('review')">Review</button>
+  <button class="btn butt" (click) = "setView('team')">Register Team</button>
 </div>
 
 <div *ngIf = "view == 'criteria'">
@@ -9,4 +10,8 @@
 
 <div *ngIf = "view == 'review'">
   <app-review></app-review>
+</div>
+
+<div class="team-registration" *ngIf = "view == 'team'">
+ <app-team-registration></app-team-registration>
 </div>

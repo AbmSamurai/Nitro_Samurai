@@ -66,7 +66,11 @@ export class RegisterComponent implements OnInit {
   passMatcher = new MyErrorStateMatcher();
 
   signUp(email, password, myName, role, team) {
-    this.auth.signUp(email, password, myName, role, team);
+    let userTeam = team;
+    if(role =="Manager"){
+      userTeam = "none"; 
+    }
+    this.auth.signUp(email, password, myName, role, userTeam);
   }
 
 }

@@ -1,15 +1,15 @@
 import { User } from "./User";
 
 export class Team{
-    leaders: Array<User>;
-    members: Array<User>;
-    productOwners: Array<User>;
-    sprintTotal: number;
-    velocity: number;
-    teamName: string;
-    rating: number;
-    picture: string;
-    url:string;
+    leaders?: Array<User>;
+    members?: Array<User>;
+    productOwners?: Array<User>;
+    sprintTotal?: number;
+    velocity?: number;
+    teamName?: string;
+    rating?: number;
+    picture?: string;
+    url?:string;
 
     constructor(){
         this.leaders = new Array<User>();
@@ -17,9 +17,9 @@ export class Team{
         this.productOwners = new Array<User>();
         this.sprintTotal = 0;
         this.velocity = 0;
-        this.teamName = '';
+        this.teamName = "";
         this.rating = 0;
-        this.picture = '';
-        this.url = '';
+        this.picture = "";
+        this.url = "";
     }
 }

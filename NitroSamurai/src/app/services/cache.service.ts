@@ -3,57 +3,99 @@ import { Team } from '../models/Team';
 import { DatabaseService } from './database.service';
 import { AuthenticationService } from './authentication.service';
 import { User } from '../models/User';
+import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class CacheService {
 
+  subscriptions: Subscription[] = [];
   selectedTeam: Team;
   active: boolean = false;
+  inited: boolean = false;
   teams: Team[] = [];
-  givenTeam: Team;
+  givenTeam: Team = new Team();
+  doneInitialising: boolean = false;
   reviewState: boolean;
+  teamsSub;
   user: User;
 
   constructor(private db: DatabaseService, private auth: AuthenticationService) { 
-    this.selectedTeam = new Team();
-    this.givenTeam = new Team();
-    this.teams = new Array<Team>();
-
-    let userSubscription = this.auth.user$.subscribe(response => {
-      console.log('WTF USER???',response[0]);
-      this.user = response[0];
-      let teamSubscription = this.db.teams.subscribe(response =>{
-        this.teams =  response as Team[];
-        
-        this.getGivenTeam();
-      });
-    })
-
-
-
-    let reviewSubscription = this.db.getReview().subscribe(response =>{
-      this.reviewState = response as boolean;
-      console.log('Review State',this.reviewState['reviewOpen']);
-    });
   }
 
-  getGivenTeam(){
-    console.log('Teams', this.teams);
 
-    console.log(JSON.stringify(this.user.team))
+  init(){
+    if(!this.inited){
+      console.log("inited");
+      this.inited = true;
+      this.selectedTeam = new Team();
+      this.teams = new Array<Team>();
+      console.log('constructor');
+      this.subscriptions.push(this.auth.user$.subscribe(response => {
+        console.log('WTF USER???',response);
+        this.user = response['0'];
+        console.log('HELLO?',this.user);
+        console.log(this.subscriptions);
+        this.getTeams()
+       
+      }));
 
-    if(this.user.team){
-      console.log("WOWOWPOWOWOW");
-      let result = this.teams.filter(team => {
-        console.log('TEAM ITERATING ON', team);
-        console.log('THIS.USER.TEAM', this.user.team);
-        team.teamName == this.user.team
-      });
+      this.subscriptions.push(this.db.getReview().subscribe(response =>{
+        this.reviewState = response as boolean;
+        console.log('Review State',this.reviewState['reviewOpen']);
+      }));
     }
+  }
 
-    console.log('Result',result);
-    this.givenTeam = result[0];
-    console.log('GIVEN TEAM',this.givenTeam);
+  getTeams(){
+    this.subscriptions.push(this.db.teams.subscribe(response =>{
+        console.log('TEAMS', response);
+        this.teams =  response as Team[];
+        //console.log('USER IN CACHE',this.user.role);
+        console.log(this.subscriptions);
+        if(this.user.role != "Manager"){
+          console.log("NOT MANAGER");
+          this.getGivenTeam(this.teams,this.user);
+        }else{
+          this.givenTeam = new Team();
+          this.givenTeam.teamName = "Manager";
+          console.log("Done init");
+          this.doneInitialising = true;
+        }
+      }));
+  }
+
+  getLength(){
+    return 
+  }
+  clear(){
+    console.log("CLEAR",  this.subscriptions);
+    this.subscriptions.forEach(subscription =>subscription.unsubscribe())
+    this.subscriptions = [];
+    this.selectedTeam = new Team();
+    this.active = false;
+    this.inited= false;
+    this.teams = [];
+    this.givenTeam = new Team();
+    this.doneInitialising= false;
+    this.reviewState = false;
+    this.user = null;
+    //this.teamsSub.unsubscribe();
+  }
+
+  
+  getUserRole(){
+    return this.user.role;
+  }
+
+  hasFinishedInit(){
+    return this.doneInitialising;
+  }
+
+
+  getGivenTeam(teams, userTeam){
+    this.givenTeam = teams.filter(team => team.teamName == userTeam.team);
+    this.givenTeam = this.givenTeam[0];
+    this.doneInitialising = true;
   }
 
   setSelectedTeam(team: Team){
@@ -76,3 +118,4 @@ export class CacheService {
     return this.reviewState['reviewOpen'];
   }
 }
+

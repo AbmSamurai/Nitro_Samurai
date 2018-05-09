@@ -13,3 +13,9 @@
 .butt:hover{
     opacity: 0.8;
 }
+
+.team-registration{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
