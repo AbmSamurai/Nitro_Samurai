@@ -25,50 +25,33 @@ export class CacheService {
 
   init(){
     if(!this.inited){
-      console.log("inited");
       this.inited = true;
       this.selectedTeam = new Team();
       this.teams = new Array<Team>();
-      console.log('constructor');
       this.subscriptions.push(this.auth.user$.subscribe(response => {
-        console.log('WTF USER???',response);
         this.user = response['0'];
-        console.log('HELLO?',this.user);
-        console.log(this.subscriptions);
         this.getTeams()
-       
       }));
 
       this.subscriptions.push(this.db.getReview().subscribe(response =>{
         this.reviewState = response as boolean;
-        console.log('Review State',this.reviewState['reviewOpen']);
       }));
     }
   }
 
   getTeams(){
-    this.subscriptions.push(this.db.teams.subscribe(response =>{
-        console.log('TEAMS', response);
+    this.subscriptions.push(this.db.getAllTeams().subscribe(response =>{
         this.teams =  response as Team[];
-        //console.log('USER IN CACHE',this.user.role);
-        console.log(this.subscriptions);
         if(this.user.role != "Manager"){
-          console.log("NOT MANAGER");
           this.getGivenTeam(this.teams,this.user);
         }else{
           this.givenTeam = new Team();
           this.givenTeam.teamName = "Manager";
-          console.log("Done init");
           this.doneInitialising = true;
         }
       }));
   }
-
-  getLength(){
-    return 
-  }
   clear(){
-    console.log("CLEAR",  this.subscriptions);
     this.subscriptions.forEach(subscription =>subscription.unsubscribe())
     this.subscriptions = [];
     this.selectedTeam = new Team();

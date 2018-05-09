@@ -126,6 +126,10 @@ export class DatabaseService {
           .valueChanges();
   }
 
+  getAllTeams():  Observable<any>{
+    return  this.afStore.collection("teams").valueChanges();;
+  }
+
   createNewUser(
     uid: string,
     role: string,
