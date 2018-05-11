@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     console.log("dashboard");
+    this.db.openReview();
     var userSubscription = this.auth.user$.subscribe(response => {
       this.cache.user = response;
       console.log("Curr user", response);

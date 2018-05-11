@@ -4,6 +4,7 @@ export class Team{
     leaders: Array<User>;
     members: Array<User>;
     productOwners: Array<User>;
+    ratedUsers: Array<String>;
     sprintTotal: number;
     velocity: number;
     teamName: string;
@@ -15,6 +16,7 @@ export class Team{
         this.leaders = new Array<User>();
         this.members = new Array<User>();
         this.productOwners = new Array<User>();
+        this.ratedUsers = new Array<String>();
         this.sprintTotal = 0;
         this.velocity = 0;
         this.teamName = '';

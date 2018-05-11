@@ -13,6 +13,7 @@ export class AuthenticationService {
 
     loggedInWithGoogle = false;
     user$ :Observable<User>;
+ 
 
     constructor(private afAuth: AngularFireAuth, private router: Router, private db: DatabaseService,private afs:AngularFirestore) { 
         

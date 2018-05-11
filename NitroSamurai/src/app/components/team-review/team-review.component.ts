@@ -8,7 +8,7 @@ import {
   FormArray
 } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Criteria,Question } from "../../models/criteria";
+import { Criteria, Question } from "../../models/criteria";
 
 @Component({
   selector: "app-team-review",
@@ -53,12 +53,12 @@ export class TeamReviewComponent implements OnInit {
       stars: this.Stars
     });
   }
-  submitRating(review) {
+  async submitRating(review) {
     console.log(review);
     const rating = review.stars.reduce((total, val) => total + val);
-    this.dbserv.updateRating(rating, this.Team);
+    await this.dbserv.updateRating(rating, this.Team);
     this.ratingForm.reset();
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(["/dashboard"]);
   }
   populateStars(): void {
     let index = 0;

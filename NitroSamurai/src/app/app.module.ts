@@ -91,7 +91,7 @@ var config = {
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AngularFirestoreModule,  
+    AngularFirestoreModule.enablePersistence(),  
     AngularFireStorageModule, 
   ],
   providers: [

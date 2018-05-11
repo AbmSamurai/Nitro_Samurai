@@ -1,3 +1,4 @@
+import { Review } from './../models/Review';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/Auth';
@@ -37,7 +38,7 @@ export class DatabaseService {
     private router:Router,
   ) {
     this.users = afStore.collection("users").valueChanges();
-    this.teams = afStore.collection("teams").valueChanges();
+    this.teams = afStore.collection("teams",ref => ref.orderBy("rating","desc")).valueChanges();
     this.sprints = afStore
       .collection("sprints", ref => ref.orderBy("score", "desc"))
       .snapshotChanges()
@@ -575,19 +576,29 @@ export class DatabaseService {
     return this.criteria_collectionRef.valueChanges();
   }
 
-  updateRating(val: number, TeamName: string) {
+  updateRating(val: number, TeamName: string) :boolean {
     const ref = this.afStore.doc(`teams/${TeamName}`);
-    let mPreviousRating:number = 0;
-    console.log(ref.valueChanges);
+    console.log(ref.valueChanges());
+    let flag = true; 
     this.teams_collectionRef.doc<Team>(`${TeamName}`)
      .valueChanges()
      .subscribe(response =>{
-        if(response.rating !== 0){
-          mPreviousRating = response.rating
-        } 
-        
+        if(response.rating !== 0 && flag){
+        const  mPreviousRating = response.rating
+        if(mPreviousRating !=0){
+          alert("" + mPreviousRating);
+        ref.update({ rating: mPreviousRating + val });
+        flag = false;
+        return true;
+        }
+        }else if(response.rating == 0 && flag){
+           ref.update({ rating: val });
+           flag = false;
+           
+        }
+       
      })
-      ref.update({ rating: (mPreviousRating + val) });
+     return false;
   }
 
 
@@ -624,7 +635,7 @@ export class DatabaseService {
 
 
   openReview(){
-    this.afStore.collection('review').doc('reviewState').set({reviewOpen: true});
+    this.afStore.collection('review').doc('reviewState').set({ reviewOpen: true });
   }
 
   closeReview(){
