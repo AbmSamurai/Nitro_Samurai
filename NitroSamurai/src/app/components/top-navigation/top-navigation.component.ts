@@ -11,10 +11,11 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class TopNavigationComponent implements OnInit {
 
-  constructor(protected ui: UiService, protected router: Router, protected cache: CacheService, private auth:AuthenticationService) { }
+  constructor(protected cache: CacheService,protected ui: UiService, protected router: Router,private auth:AuthenticationService) { }
 
   ngOnInit() {
-    console.log(this.cache.teams);
+    this.cache.init();
+    console.log(this.cache.doneInitialising);
   }
 
 
@@ -23,6 +24,7 @@ export class TopNavigationComponent implements OnInit {
   }
 
   logout(){
+    this.cache.clear();
     this.auth.logout();
     this.router.navigate(['/login']);
   }

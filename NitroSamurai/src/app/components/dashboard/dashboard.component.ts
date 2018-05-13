@@ -19,20 +19,7 @@ export class DashboardComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log("dashboard");
-    var userSubscription = this.auth.user$.subscribe(response => {
-      this.cache.user = response;
-      console.log("Curr user", response);
-      console.log(response[0].role == "Manager");
-      if(response[0].role === "Manager"){
-        this.ui.isManager = true;
-      }else{
-        this.ui.isManager = false;
-      } 
-
-
-      userSubscription.unsubscribe();
-    })
+    this.cache.init();
   }
 
   getTeams(){

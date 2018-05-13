@@ -20,7 +20,7 @@ export class CardComponent implements OnInit {
     constructor(
       private router: Router, // private route: Routes,
       private ui: UiService,
-      private cache: CacheService,
+      protected cache: CacheService,
     ) {}
   
     ngOnInit() {

@@ -17,6 +17,7 @@ export const routes: Routes = [
   { path: 'review/:teamName', component: TeamReviewComponent,canActivate:[AuthGuard]},
   { path: 'login', component: LoginRegisterComponent },
   { path: 'admin', component: CriteriaReviewComponent },
+  { path: 'loading', component: NotFoundComponent},
   {path:"**" ,component:NotFoundComponent}
 ]
 

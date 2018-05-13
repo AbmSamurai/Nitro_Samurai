@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { DatabaseService } from './database.service';
+import { CacheService } from './cache.service';
+
 
 
 @Injectable()
@@ -14,13 +16,15 @@ export class AuthenticationService {
     loggedInWithGoogle = false;
     user$ :Observable<User>;
 
+    userUID: any;
+
     constructor(private afAuth: AngularFireAuth, private router: Router, private db: DatabaseService,private afs:AngularFirestore) { 
         
         this.user$ = this.afAuth.authState
-        .switchMap(user => {
+        .switchMap(user => {           
         if(user){
-             console.log(this.afs.collection<User>(`users`,ref => ref.where('user','==', user.uid)).valueChanges());
-           return this.afs.collection<User>(`users`,ref => ref.where('user','==', user.uid)).valueChanges();
+            this.userUID = user.uid;
+            return this.afs.collection<User>(`users`,ref => ref.where('userUID','==', user.uid)).valueChanges();
     
         }else{
             return Observable.of(null);
@@ -72,6 +76,7 @@ export class AuthenticationService {
             this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
                 (success) => {
                     this.updateTable(myName, role, team);
+                    this.router.navigate(['/dashboard']);
                 }).catch(
                 (err) => {
                     if (err.message === 'The email address is already in use by another account.') {

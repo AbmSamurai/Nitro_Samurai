@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CacheService } from '../../services/cache.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
@@ -8,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 export class NotFoundComponent implements OnInit {
 
   errorText:String = " Oops.. 404 Page Not Found";
-  constructor() { }
+  constructor(private cache:CacheService, private router:Router) { }
 
+ 
   ngOnInit() {
+    this.cache.init();
+    if(this.cache.hasFinishedInit()){
+      console.log("HELLO?");
+      this.router.navigate(['/dashboard']);
+    }
   }
+
+
+
 
 }

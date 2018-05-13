@@ -18,25 +18,19 @@ export class TeamViewComponent implements OnInit {
   teamMembers: any[] = [];
   @Input() givenTeam: Team = new Team();
   constructor(private db: DatabaseService,private router:Router, protected ui: UiService, protected cache: CacheService) {
+    this.givenTeam = new Team();
   }
 
   ngOnInit() {
-    
-     console.log("Team : ", this.givenTeam);
     this.teamMembers = [];
-     this.subscription = this.db.getTeamMembers(this.cache.givenTeam[0].teamName).subscribe(response =>{
+    console.log(this.givenTeam);
+     this.subscription = this.db.getTeamMembers(this.givenTeam.teamName).subscribe(response =>{
       this.teamMembers = response;
       this.subscription.unsubscribe();
     });
-    // console.log('teamMembers',this.cache.teamMembers);
   }
 
-    log(member: string){
-      // console.log("Member : ", member);
-    }
-
     getTeamMembers(){
-      // console.log(this.cache.teamMembers);
       return  this.teamMembers;
     }
 }
