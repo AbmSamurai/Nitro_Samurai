@@ -27,7 +27,6 @@ export class RegisterComponent implements OnInit {
     this.roles.push(
       {viewValue: "Member"},
       {viewValue: "Leader"},
-      {viewValue: "PO"},
       {viewValue: "Manager"},
       
     )
