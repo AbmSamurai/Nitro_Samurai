@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
 
   nameFormControl = new FormControl('', [
     Validators.required,
-    Validators.pattern("[A-Za-z]{1,32}")
+    Validators.pattern("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")
   ]);
 
   selectFormControl = new FormControl('', [
