@@ -12,7 +12,7 @@ export class UiService {
   modalActive: boolean = false;
   modalSection: string = "";
   teamSection: string = "details";
-  team:Team = new Team();
+  team:Team;
   constructor() { }
 
 

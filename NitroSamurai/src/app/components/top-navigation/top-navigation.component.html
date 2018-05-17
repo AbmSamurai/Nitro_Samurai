@@ -1,18 +1,28 @@
-<mat-toolbar class="d-flex justify-content-between " color="primary">
+<div *ngIf='this.cache.hasFinishedInit() == false'>
+  <div class="spinner" *ngIf="!visible">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+</div>
+
+
+
+
+<mat-toolbar class="d-flex justify-content-between " color="primary" *ngIf='this.cache.hasFinishedInit() == true'>
   <mat-toolbar-row>
     <span>Nitro-Samurai</span>
     <div>
         <button mat-button  (click)='logout()'>Logout</button>
-        <button mat-button  (click)='adminPanel()'>Admin Panel</button>
+        <button mat-button *ngIf='this.cache.getUserRole() == "Manager"' (click)='adminPanel()'>Admin Panel</button>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-tab-group id="top-nav" color="accent" disableRipple="true" backgroundColor="primary">
+<mat-tab-group id="top-nav" color="accent" disableRipple="true" backgroundColor="primary" *ngIf='this.cache.hasFinishedInit() == true'>
   <mat-tab label="Dashboard" disableRipple="true">
     <app-dashboard></app-dashboard>
   </mat-tab>
-  <mat-tab label="My Team" disableRipple="true" *ngIf='cache.teams.length != 0'>
+  <mat-tab label="My Team" disableRipple="true" *ngIf='this.cache.getUserRole() != "Manager" && this.cache.hasFinishedInit() == true'>
     <app-team-navigation></app-team-navigation>
     <app-team-view *ngIf='ui.getTeamSection() == "details"' [givenTeam]='this.cache.givenTeam' ></app-team-view>
     <app-sprint-details  *ngIf='ui.getTeamSection() == "sprint"'></app-sprint-details>

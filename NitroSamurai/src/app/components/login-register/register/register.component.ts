@@ -27,7 +27,6 @@ export class RegisterComponent implements OnInit {
     this.roles.push(
       {viewValue: "Member"},
       {viewValue: "Leader"},
-      {viewValue: "PO"},
       {viewValue: "Manager"},
       
     )
@@ -54,7 +53,7 @@ export class RegisterComponent implements OnInit {
 
   nameFormControl = new FormControl('', [
     Validators.required,
-    Validators.pattern("[A-Za-z]{1,32}")
+    Validators.pattern("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")
   ]);
 
   selectFormControl = new FormControl('', [
@@ -66,7 +65,11 @@ export class RegisterComponent implements OnInit {
   passMatcher = new MyErrorStateMatcher();
 
   signUp(email, password, myName, role, team) {
-    this.auth.signUp(email, password, myName, role, team);
+    let userTeam = team;
+    if(role =="Manager"){
+      userTeam = "none"; 
+    }
+    this.auth.signUp(email, password, myName, role, userTeam);
   }
 
 }

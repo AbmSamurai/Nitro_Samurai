@@ -19,9 +19,9 @@ export class Team{
         this.ratedUsers = new Array<String>();
         this.sprintTotal = 0;
         this.velocity = 0;
-        this.teamName = '';
+        this.teamName = "";
         this.rating = 0;
-        this.picture = '';
-        this.url = '';
+        this.picture = "";
+        this.url = "";
     }
 }

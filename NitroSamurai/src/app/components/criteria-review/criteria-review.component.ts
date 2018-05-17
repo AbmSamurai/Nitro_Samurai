@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-criteria-review',
@@ -8,12 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class CriteriaReviewComponent implements OnInit {
   view: string = 'criteria';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   setView(view){
     this.view = view;
+  }
+
+  back(){
+    this.router.navigate(['/dashboard']);
   }
 }
