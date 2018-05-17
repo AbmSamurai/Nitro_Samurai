@@ -38,7 +38,7 @@ export class DatabaseService {
     private afAuth: AngularFireAuth,
     private storage: AngularFireStorage,
     private ui: UiService,
-    private router:Router,
+    private router:Router
   ) {
     this.users = afStore.collection("users").valueChanges();
     this.teams = afStore.collection("teams",ref => ref.orderBy("rating","desc")).valueChanges();
@@ -655,34 +655,31 @@ export class DatabaseService {
   getReview(){
     return this.afStore.collection('review').doc('reviewState').valueChanges();
   }
-
-  canRateCheck(teamName:string){
-   let team:Team[];
-   let rated:boolean;
-   let flag:boolean = true ;
-    console.log(team.map(team => team.ratedUsers.includes(this.afAuth.auth.currentUser.uid, 0)));
- return this.afStore.collection<Team>('teams', ref => ref.where("teamName","==",teamName))
+ async getTeam(teamName:string){
+ let team:Team[];
+  const subscr = await this.afStore.collection<Team>('teams', ref => ref.where("teamName","==",teamName))
     .valueChanges()
     .subscribe(response =>{
       team = response;
-   return team.map( team => team.ratedUsers.includes(this.afAuth.auth.currentUser.uid, 0))
     })
+    return team;
+ }
+ async canRateCheck(teamName:string){
+   let team:Team[];
+   let rated:boolean;
+   let flag:boolean = false;
+   team = await this.getTeam(teamName);
+    console.log(team.map(team => team.ratedUsers.includes(this.afAuth.auth.currentUser.uid, 0)));
 
-   
+    if(team != null || team.length <= 0){
+      console.log(team)
+    if(team[0].ratedUsers.includes(this.afAuth.auth.currentUser.uid, 0)){
+      return true
+    }
+    else{
+      return false;
+    }
+  }
    
 }
 }
-// .pipe(
-//       take(1),
-//       map(team => team[0].ratedUsers.includes(this.afAuth.auth.currentUser.uid)),
-//       tap(
-//         rated=>{
-//           if(!rated){
-//             alert("rate me")
-//             rated = false;
-//           }else{
-//             rated = true;
-//           }
-//         }
-//       )
-//     )

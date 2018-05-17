@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { CacheService } from '../../services/cache.service';
 import { Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class NotFoundComponent implements OnInit {
 
   errorText:String = " Oops.. 404 Page Not Found";
-  constructor(private cache:CacheService, private router:Router) { }
+  constructor(private cache:CacheService, private router:Router,private auth:AuthenticationService) { }
 
  
   ngOnInit() {
@@ -19,8 +20,13 @@ export class NotFoundComponent implements OnInit {
       console.log("HELLO?");
       this.router.navigate(['/dashboard']);
     }
+
+   
   }
 
+   authCheck(){
+      return (this.auth.user$ !=null)?true :false;
+    }
 
 
 

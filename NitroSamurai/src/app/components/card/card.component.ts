@@ -31,6 +31,7 @@ export class CardComponent implements OnInit {
     ngOnInit() {
       
       this.db.canRateCheck(this.team.teamName);
+      
       console.log(this.team, "Here on card now");
       // this.team.Picture;
     }
