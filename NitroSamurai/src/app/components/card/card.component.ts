@@ -1,3 +1,4 @@
+import { DatabaseService } from './../../services/database.service';
 import { Component, OnInit,Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Team } from '../../models/Team';
@@ -17,13 +18,19 @@ export class CardComponent implements OnInit {
     @Input("team") team: Team;
   
     flipped: boolean;
+    canRate:boolean;
     constructor(
       private router: Router, // private route: Routes,
       private ui: UiService,
       private cache: CacheService,
-    ) {}
+      private db:DatabaseService
+    ) {
+   
+    }
   
     ngOnInit() {
+      
+      this.db.canRateCheck(this.team.teamName);
       console.log(this.team, "Here on card now");
       // this.team.Picture;
     }

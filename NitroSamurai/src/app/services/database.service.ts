@@ -9,6 +9,8 @@ import { Criteria, Question } from "../models/criteria";
 import { AngularFireStorage } from 'angularfire2/storage';
 import { UiService } from './ui.service';
 import { Router } from '@angular/router';
+import { tap,take} from "rxjs/operators";
+import "rxjs/add/operator/toPromise";
 
 @Injectable()
 export class DatabaseService {
@@ -27,6 +29,7 @@ export class DatabaseService {
   filePath: string;
   displayPercentage: number;
   currentLatestSprintObject;
+  blockRate:boolean;
 
   criteria_collectionRef = this.afStore.collection<Question>("criteria");
   teams_collectionRef = this.afStore.collection<Team>("teams");
@@ -584,10 +587,13 @@ export class DatabaseService {
      .valueChanges()
      .subscribe(response =>{
         if(response.rating !== 0 && flag){
-        const  mPreviousRating = response.rating
+        const  mPreviousRating = response.rating;
+        const usersRated = response.ratedUsers;
         if(mPreviousRating !=0){
           alert("" + mPreviousRating);
+          usersRated.push(this.afAuth.auth.currentUser.uid as string);
         ref.update({ rating: mPreviousRating + val });
+        ref.update({ratedUsers : usersRated})
         flag = false;
         return true;
         }
@@ -645,4 +651,34 @@ export class DatabaseService {
   getReview(){
     return this.afStore.collection('review').doc('reviewState').valueChanges();
   }
+
+  canRateCheck(teamName:string){
+   let team:Team[];
+   let rated:boolean;
+   let flag:boolean = true ;
+    console.log(team.map(team => team.ratedUsers.includes(this.afAuth.auth.currentUser.uid, 0)));
+ return this.afStore.collection<Team>('teams', ref => ref.where("teamName","==",teamName))
+    .valueChanges()
+    .subscribe(response =>{
+      team = response;
+   return team.map( team => team.ratedUsers.includes(this.afAuth.auth.currentUser.uid, 0))
+    })
+
+   
+   
 }
+}
+// .pipe(
+//       take(1),
+//       map(team => team[0].ratedUsers.includes(this.afAuth.auth.currentUser.uid)),
+//       tap(
+//         rated=>{
+//           if(!rated){
+//             alert("rate me")
+//             rated = false;
+//           }else{
+//             rated = true;
+//           }
+//         }
+//       )
+//     )

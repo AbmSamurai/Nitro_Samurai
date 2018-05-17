@@ -30,7 +30,7 @@ export class CacheService {
 
   getGivenTeam(){
     console.log( this.teams);
-    this.givenTeam = this.teams.filter(team => team.teamName == "Carrot")
+    this.givenTeam = this.teams.filter(team => team.teamName == "RTW")
     console.log('GIVEN TEAM',this.givenTeam[0]);
   }
 
