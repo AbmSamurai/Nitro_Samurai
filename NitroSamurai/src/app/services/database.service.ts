@@ -655,31 +655,52 @@ export class DatabaseService {
   getReview(){
     return this.afStore.collection('review').doc('reviewState').valueChanges();
   }
- async getTeam(teamName:string){
- let team:Team[];
-  const subscr = await this.afStore.collection<Team>('teams', ref => ref.where("teamName","==",teamName))
-    .valueChanges()
-    .subscribe(response =>{
-      team = response;
-    })
-    return team;
+ getTeam(teamName:string){
+
+ const ref = this.afStore.collection<Team>('teams').doc(teamName);
+  // const subscr = this.afStore.collection('teams', ref => ref.where("teamName","==",teamName))
+  //   .valueChanges()
+  //   .take(1)
+  //   .subscribe(response =>{
+  //     team = response[0] as Team;
+  //   })
+  let team;
+ref.valueChanges()
+.subscribe((element)=> 
+{
+  team = element as Team;
+})
+            
+
+   console.log("Rating Check", team);
+    if(team != null){
+      console.log("Rating Check", team)
+      // subscr.unsubscribe();
+      return team;
+    }
  }
- async canRateCheck(teamName:string){
-   let team:Team[];
+ canRateCheck(teamName:string){
+   
    let rated:boolean;
    let flag:boolean = false;
-   team = await this.getTeam(teamName);
-    console.log(team.map(team => team.ratedUsers.includes(this.afAuth.auth.currentUser.uid, 0)));
+  const ref = this.afStore.collection<Team>('teams', ref => ref.where("teamName","==",teamName))
+  let team;
+  //  ref.valueChanges()
+  //   .subscribe((element) => {
+  //     team = element as Team;
+  //   })
 
-    if(team != null || team.length > 0){
-      console.log(team)
-    if(team[0].ratedUsers.includes(this.afAuth.auth.currentUser.uid, 0)){
-      return true
-    }
-    else{
-      return false;
-    }
-  }
-   
+   ref.valueChanges()
+              .subscribe((elem)=>{
+                team = elem[0] as Team;
+                }
+              )
+
+
+  //   if(team != null){
+  //     console.log("Rating Check",team)
+  // return   (team[0].ratedUsers.includes(this.afAuth.auth.currentUser.uid))? true:false;
+  //  }
 }
+
 }
