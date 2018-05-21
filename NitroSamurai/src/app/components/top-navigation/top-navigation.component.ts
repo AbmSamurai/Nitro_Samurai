@@ -15,7 +15,6 @@ export class TopNavigationComponent implements OnInit {
 
   ngOnInit() {
     this.cache.init();
-    console.log(this.cache.doneInitialising);
   }
 
 

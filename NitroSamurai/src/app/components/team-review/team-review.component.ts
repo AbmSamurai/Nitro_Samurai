@@ -54,7 +54,7 @@ export class TeamReviewComponent implements OnInit {
     });
   }
   async submitRating(review) {
-    console.log(review);
+
     const rating = review.stars.reduce((total, val) => total + val);
     await this.dbserv.updateRating(rating, this.Team);
     this.ratingForm.reset();
@@ -64,17 +64,17 @@ export class TeamReviewComponent implements OnInit {
     let index = 0;
     this.dbserv.getCriteria().subscribe(res => {
       this.criteria = res;
-      console.log(this.criteria);
+
       for (var Question in res) {
         let temp: number[] = [];
-        console.log(index);
+
         this.Stars.push(new FormControl(null, [Validators.required]));
         for (var i = 0; i < 5; i++) {
-          console.log(i);
+
           temp.push(Math.round(Math.random() * (500 - 1) + 1));
         }
         this.starIds[index] = temp;
-        console.log(this.starIds);
+
         index++;
       }
     });

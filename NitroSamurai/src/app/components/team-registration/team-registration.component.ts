@@ -46,10 +46,9 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   profileUpload(event: any, fileInput: any) {
-    console.log(this.teamNameFormControl.value);
+
     this.db.uploadProfilePicture(event, this.teamNameFormControl.value);
     this.filePreview(event);
-    console.log("Uploading FILE!")
     this.checkDl(fileInput);
   }
 
@@ -70,7 +69,7 @@ export class TeamRegistrationComponent implements OnInit {
   submit() {
     this.team.picture = this.downloadUrl;
     this.team.teamName = this.teamNameFormControl.value;
-    console.log(this.team);
+
     this.db.createTeam(this.team).then(response => {
       this.router.navigate(["/dashboard"]);
     });
@@ -78,7 +77,7 @@ export class TeamRegistrationComponent implements OnInit {
 
   checkDl(fileInput: any){
     this.db.getDownloadUrl().subscribe(response =>{
-      console.log(response);
+
       if(response){
         this.ui.showSpinner = false;
         this.buttonDisabled = false;

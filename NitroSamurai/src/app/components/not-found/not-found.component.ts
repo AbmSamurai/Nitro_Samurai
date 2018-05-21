@@ -16,7 +16,6 @@ export class NotFoundComponent implements OnInit {
   ngOnInit() {
     this.cache.init();
     if(this.cache.hasFinishedInit()){
-      console.log("HELLO?");
       this.router.navigate(['/dashboard']);
     }
   }

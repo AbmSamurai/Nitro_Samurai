@@ -32,7 +32,7 @@ export class SprintDetailsComponent implements OnInit {
   minDate = new Date().toISOString().substr(0, 10);
 
   constructor(private fb: FormBuilder, protected db:DatabaseService, private cache:CacheService) {
-    console.log(this.minDate);
+
 
     this.sprintForm = fb.group({
       points: [
@@ -46,19 +46,17 @@ export class SprintDetailsComponent implements OnInit {
       End: [{disabled:true}, Validators.compose([Validators.required])]
     });
 
-    console.log(this.sprintForm)
   }
 
   ngOnInit() {    
-    console.log("INIT");
-    console.log( this.cache.teams);
+
     this.cache.teams.map(element => {
-      console.log('Element', element.teamName );
+  
       if (element.teamName === this.cache.user[0]['team']) {
         this.team = element;
         this.db.getTeamSprint(this.team.name);
         //  this.sprintNum=this.db.teamHighestSprint;
-        //  console.log(element.name)
+       
       }
 
     });
@@ -88,6 +86,6 @@ export class SprintDetailsComponent implements OnInit {
       this.sprintPoints = 0;
       this.startDate = "";
       // this.db.teamHighestSprint++;
-      // console.log(this.db.teamHighestSprint);
+   
   }
 }
