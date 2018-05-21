@@ -38,7 +38,7 @@ export class DatabaseService {
     private afAuth: AngularFireAuth,
     private storage: AngularFireStorage,
     private ui: UiService,
-    private router:Router,
+    private router:Router
   ) {
     this.users = afStore.collection("users").valueChanges();
     this.teams = afStore.collection("teams",ref => ref.orderBy("rating","desc")).valueChanges();
@@ -655,34 +655,52 @@ export class DatabaseService {
   getReview(){
     return this.afStore.collection('review').doc('reviewState').valueChanges();
   }
+ getTeam(teamName:string){
 
-  canRateCheck(teamName:string){
-   let team:Team[];
+ const ref = this.afStore.collection<Team>('teams').doc(teamName);
+  // const subscr = this.afStore.collection('teams', ref => ref.where("teamName","==",teamName))
+  //   .valueChanges()
+  //   .take(1)
+  //   .subscribe(response =>{
+  //     team = response[0] as Team;
+  //   })
+  let team;
+ref.valueChanges()
+.subscribe((element)=> 
+{
+  team = element as Team;
+})
+            
+
+   console.log("Rating Check", team);
+    if(team != null){
+      console.log("Rating Check", team)
+      // subscr.unsubscribe();
+      return team;
+    }
+ }
+ canRateCheck(teamName:string){
+   
    let rated:boolean;
-   let flag:boolean = true ;
-    console.log(team.map(team => team.ratedUsers.includes(this.afAuth.auth.currentUser.uid, 0)));
- return this.afStore.collection<Team>('teams', ref => ref.where("teamName","==",teamName))
-    .valueChanges()
-    .subscribe(response =>{
-      team = response;
-   return team.map( team => team.ratedUsers.includes(this.afAuth.auth.currentUser.uid, 0))
-    })
+   let flag:boolean = false;
+  const ref = this.afStore.collection<Team>('teams', ref => ref.where("teamName","==",teamName))
+  let team;
+  //  ref.valueChanges()
+  //   .subscribe((element) => {
+  //     team = element as Team;
+  //   })
 
-   
-   
+   ref.valueChanges()
+              .subscribe((elem)=>{
+                team = elem[0] as Team;
+                }
+              )
+
+
+  //   if(team != null){
+  //     console.log("Rating Check",team)
+  // return   (team[0].ratedUsers.includes(this.afAuth.auth.currentUser.uid))? true:false;
+  //  }
 }
+
 }
-// .pipe(
-//       take(1),
-//       map(team => team[0].ratedUsers.includes(this.afAuth.auth.currentUser.uid)),
-//       tap(
-//         rated=>{
-//           if(!rated){
-//             alert("rate me")
-//             rated = false;
-//           }else{
-//             rated = true;
-//           }
-//         }
-//       )
-//     )
