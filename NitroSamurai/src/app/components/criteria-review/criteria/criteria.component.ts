@@ -18,40 +18,18 @@ add: Boolean = false;
 addNew: string = '';
 Criteria: Array<Question> =[] ;
   constructor(private dbConn: DatabaseService) { 
-// this.Criteria = this.dbConn.getCriteria();
-// console.log(this.Criteria);
 
-
-// this.questions.push(
-  //   { Question: 'How was the presentation? *' },
-  //   { Question: 'Estimation Accuracy *' },
-  //   { Question: 'Bug free *' },
-  //   { Question: 'Efficiency *' },
-  //   { Question: 'Overall impressions *' },)
             
   
   this.dbConn.getCriteria().subscribe(criteria => {        
             this.Criteria = criteria;
 
-            console.log(criteria)
             });
   }
 
   ngOnInit() {
     
 
-      // element.map(res => {
-      //   this.questions.push(
-      //     new Question(res)
-      //   );
-
-        // console.log(res. + "here")
-      // })
-
-      // console.log(this.questions + "here")
-      
-
-    // this.quest = this.questions.Questions;
     
   }
 

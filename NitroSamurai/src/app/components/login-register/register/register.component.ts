@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(){
     this.db.teams.subscribe( response =>{
       this.teams = response as Team[];
-      // console.log(this.teams[1].teamName);
+      
       }) ;
   
   }

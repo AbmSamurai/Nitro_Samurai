@@ -58,7 +58,7 @@ export class UiService {
   }
 
   getModalSection(){
-    console.log(this.modalSection);
+ 
     return this.modalSection;
   }
 }

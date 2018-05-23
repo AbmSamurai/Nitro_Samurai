@@ -18,12 +18,15 @@ export class DashboardComponent implements OnInit {
     ui.showTopNav = true;
    }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.cache.init();
+   var check = await this.db.canRateCheck("CIB");
+    console.log(check)
   }
 
   getTeams(){
     return this.teams;
   }
+
 
 }

@@ -43,7 +43,7 @@ export class AuthenticationService {
             (err) => {
                 alert(err.message);
                 loggedIn = false;
-                console.log(err + "does not exist")
+        
             });
         return this.afAuth.auth.currentUser;
     }
@@ -84,14 +84,14 @@ export class AuthenticationService {
                         alert(err.message);
                         // this.router.navigate(['/register']);
                     } else {
-                        console.log(err.message);
+  
                     }
                 });
         }
     }
 
     updateTable(name, role, team) {
-        console.log(name);
+      
         this.afAuth.auth.currentUser.updateProfile({ displayName: name, photoURL: null });
         this.db.createNewUser(this.afAuth.auth.currentUser.uid, role, team,false, name);
         // this.router.navigate(['/dashboard']);

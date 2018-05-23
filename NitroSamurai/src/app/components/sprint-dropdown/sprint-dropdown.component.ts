@@ -13,6 +13,6 @@ export class SprintDropdownComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log('Sprints', this.sprints);
+   
   }
 }

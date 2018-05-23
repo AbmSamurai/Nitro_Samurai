@@ -41,7 +41,7 @@ export class LoginComponent {
     if(!(this.emailFormControl.hasError('email') || this.emailFormControl.hasError('required')) &&
       !(this.passwordFormControl.hasError('minlength') || this.passwordFormControl.hasError('required'))){
 
-        console.log("Email: " + email + " Password: " + password)
+     
         this.auth.signIn(email, password);
 
     }

@@ -1,59 +1,62 @@
-import { DatabaseService } from './../../services/database.service';
-import { Component, OnInit,Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { Team } from '../../models/Team';
-import { TeamViewComponent } from '../team-view/team-view.component';
-import { UiService } from '../../services/ui.service';
-import { CacheService } from '../../services/cache.service';
-
-
+import { DatabaseService } from "./../../services/database.service";
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from "@angular/core";
+import { Router } from "@angular/router";
+import { Team } from "../../models/Team";
+import { TeamViewComponent } from "../team-view/team-view.component";
+import { UiService } from "../../services/ui.service";
+import { CacheService } from "../../services/cache.service";
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.css']
+  selector: "app-card",
+  templateUrl: "./card.component.html",
+  styleUrls: ["./card.component.css"]
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit,OnChanges{
   // tslint:disable-next-line:no-input-rename
-    @Input("team") team: Team;
-  
-    flipped: boolean;
-    canRate:boolean;
-    constructor(
-      private router: Router, // private route: Routes,
-      private ui: UiService,
-      private cache: CacheService,
-      private db:DatabaseService
-    ) {
-   
-    }
-  
-    ngOnInit() {
-      
-    // this.db.canRateCheck(this.team.teamName);
-      console.log(this.team.teamName,this.db.canRateCheck(this.team.teamName));
-      console.log(this.team, "Here on card now");
-      // this.team.Picture;
-    }
-  
-    flip() {
-      this.flipped = !this.flipped;
-    }
-  
-    
-    StartReview(selectedTeam: string) {
-      console.log(selectedTeam, "is raedy for review");
-      this.router.navigate(["review/", selectedTeam]);
-    }
+  @Input("team") team: Team;
 
-    sendTeam(specifiedTeam) {
-      console.log("clicked on this team:", specifiedTeam.Name);
-      // this.dbs.SneakedTeam = specifiedTeam;
-      this.router.navigate(["teamView"]);
-    }
+  flipped: boolean;
+  canRate: boolean;
+  constructor(
+    private router: Router, // private route: Routes,
+    private ui: UiService,
+    private cache: CacheService,
+    private db: DatabaseService
+  ) {}
 
-    viewTeam(){
-      this.cache.setSelectedTeam(this.team);
-      this.ui.team = this.team;
+  ngOnInit() {}
+
+  flip() {
+    this.flipped = !this.flipped;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    if(changes['team']){
+      console.log("Team nigga",this.team.teamName)
+      this.db.canRateCheck(this.team.teamName).then(response => {
+        console.log("Check",response)
+      if (response) {
+        this.canRate = true;
+      } else this.canRate = false;
+    });
     }
+  }
+  isRateable(Team: string) {
+    return 
+  }
+
+  StartReview(selectedTeam: string) {
+    this.router.navigate(["review/", selectedTeam]);
+  }
+
+  sendTeam(specifiedTeam) {
+    this.router.navigate(["teamView"]);
+  }
+
+  viewTeam() {
+    this.cache.setSelectedTeam(this.team);
+    this.ui.team = this.team;
+  }
 }
